@@ -167,6 +167,27 @@ export const preprocessImage = (data: Uint8ClampedArray, settings: DitherSetting
 
 export const applyDither = (ctx: CanvasRenderingContext2D, img: HTMLImageElement, settings: DitherSettings) => {
   const { width, height } = ctx.canvas;
+
+  // Clear the canvas
+  ctx.clearRect(0, 0, width, height);
+  
+  // Calculate scaled dimensions for pixelation
+  const scaledWidth = Math.floor(width / settings.pixelationScale);
+  const scaledHeight = Math.floor(height / settings.pixelationScale);
+
+  // Create a temporary canvas for the intermediate step
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = scaledWidth;
+  tempCanvas.height = scaledHeight;
+  const tempCtx = tempCanvas.getContext('2d')!;
+  
+  // Draw scaled down on temp canvas
+  tempCtx.imageSmoothingEnabled = false;
+  tempCtx.drawImage(img, 0, 0, scaledWidth, scaledHeight);
+  
+  // Draw from temp canvas to main canvas with crisp pixels
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(tempCanvas, 0, 0, width, height);
   
   // Get image data
   const imageData = ctx.getImageData(0, 0, width, height);

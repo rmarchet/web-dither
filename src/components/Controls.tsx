@@ -6,7 +6,6 @@ interface ControlsProps {
   settings: DitherSettings;
   onSettingChange: (setting: keyof DitherSettings, value: number | string) => void;
   onReset: () => void;
-  onExport: () => void;
 }
 
 const DITHER_STYLES: DitherStyle[] = ['Floyd-Steinberg', 'Ordered', 'Atkinson', 'Bayer', 'Random'];
@@ -14,8 +13,7 @@ const DITHER_STYLES: DitherStyle[] = ['Floyd-Steinberg', 'Ordered', 'Atkinson', 
 const Controls: React.FC<ControlsProps> = ({
   settings,
   onSettingChange,
-  onReset,
-  onExport
+  onReset
 }) => {
   return (
     <div className={styles.controls}>
@@ -124,9 +122,6 @@ const Controls: React.FC<ControlsProps> = ({
       </div>
 
       <div className={styles.buttonGroup}>
-        <button onClick={onExport} className={styles.exportButton}>
-          Export
-        </button>
         <button onClick={onReset} className={styles.resetButton}>
           Reset
         </button>

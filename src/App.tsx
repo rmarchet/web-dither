@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import styles from './App.module.css';
 import { DitherSettings, defaultSettings } from './types';
 import Header from './components/Header';
@@ -7,7 +7,7 @@ import ImagePreview from './components/ImagePreview';
 
 const App: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);
-  const [canvasRef, setCanvasRef] = useState<HTMLCanvasElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [settings, setSettings] = useState<DitherSettings>(defaultSettings);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,17 +32,8 @@ const App: React.FC = () => {
     setSettings(defaultSettings);
   };
 
-  const handleExport = () => {
-    if (!canvasRef) return;
-    
-    const link = document.createElement('a');
-    link.download = 'dithered-image.png';
-    link.href = canvasRef.toDataURL('image/png');
-    link.click();
-  };
-
   const handleCanvasRef = useCallback((ref: HTMLCanvasElement | null) => {
-    setCanvasRef(ref);
+    canvasRef.current = ref;
   }, []);
 
   return (
@@ -53,7 +44,6 @@ const App: React.FC = () => {
           settings={settings}
           onSettingChange={handleSettingChange}
           onReset={handleReset}
-          onExport={handleExport}
         />
         <ImagePreview
           image={image}
