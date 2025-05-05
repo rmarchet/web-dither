@@ -8,7 +8,20 @@ interface ControlsProps {
   onReset: () => void;
 }
 
-const DITHER_STYLES: DitherStyle[] = ['Floyd-Steinberg', 'Ordered', 'Atkinson', 'Bayer', 'Random'];
+const DITHER_STYLES: DitherStyle[] = [
+  'Floyd-Steinberg',
+  'Ordered',
+  'Atkinson',
+  'Bayer',
+  'Random',
+  'Stucki',
+  'Burkes',
+  'Sierra',
+  'Halftone'
+];
+
+// Add a list of styles that support dithering scale
+const SCALED_STYLES: DitherStyle[] = ['Bayer', 'Ordered', 'Halftone'];
 
 const Controls: React.FC<ControlsProps> = ({
   settings,
@@ -44,6 +57,24 @@ const Controls: React.FC<ControlsProps> = ({
           className={styles.slider}
         />
       </div>
+
+      {SCALED_STYLES.includes(settings.style) && (
+        <div className={styles.controlGroup}>
+          <label className={styles.controlLabel}>
+            Dithering Scale
+            <span className={styles.value}>{settings.ditheringScale}</span>
+          </label>
+          <input
+            type="range"
+            min="1"
+            max="10"
+            step="0.1"
+            value={settings.ditheringScale}
+            onChange={(e) => onSettingChange('ditheringScale', Number(e.target.value))}
+            className={styles.slider}
+          />
+        </div>
+      )}
 
       <div className={styles.controlGroup}>
         <label className={styles.controlLabel}>

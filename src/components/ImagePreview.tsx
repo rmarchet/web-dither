@@ -35,16 +35,25 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
           const ctx = canvasRef.current.getContext('2d');
           if (!ctx) return;
 
-          // Calculate scaled dimensions
-          const scale = settings.pixelationScale;
-          const scaledWidth = Math.floor(img.width / scale);
-          const scaledHeight = Math.floor(img.height / scale);
+          // Calculate scaled dimensions based on pixelation scale
+          const pixelationScale = settings.pixelationScale;
+          const scaledWidth = Math.floor(img.width / pixelationScale);
+          const scaledHeight = Math.floor(img.height / pixelationScale);
           
           // Set canvas size
-          canvasRef.current.width = scaledWidth * scale;
-          canvasRef.current.height = scaledHeight * scale;
+          canvasRef.current.width = scaledWidth * pixelationScale;
+          canvasRef.current.height = scaledHeight * pixelationScale;
 
-          // Apply dithering effect (which now includes drawing the image)
+          // Apply dithering effect with one of the following styles:
+          // - Floyd-Steinberg: Classic error diffusion
+          // - Ordered: 8x8 ordered dithering
+          // - Atkinson: Error diffusion with reduced artifacts
+          // - Bayer: 4x4 Bayer matrix dithering
+          // - Random: Random noise-based dithering
+          // - Stucki: Enhanced error diffusion
+          // - Burkes: Simplified error diffusion
+          // - Sierra: Balanced error diffusion
+          // - Halftone: Classic newspaper-style halftone
           applyDither(ctx, img, settings);
         }
       };

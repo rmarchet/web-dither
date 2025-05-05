@@ -1,8 +1,9 @@
-export type DitherStyle = 'Floyd-Steinberg' | 'Ordered' | 'Atkinson' | 'Bayer' | 'Random';
+export type DitherStyle = 'Floyd-Steinberg' | 'Ordered' | 'Atkinson' | 'Bayer' | 'Random' | 'Stucki' | 'Burkes' | 'Sierra' | 'Halftone';
 
 export interface DitherSettings {
   style: DitherStyle;
   pixelationScale: number;
+  ditheringScale: number;
   detailEnhancement: number;
   brightness: number;
   midtones: number;
@@ -13,6 +14,7 @@ export interface DitherSettings {
 export const defaultSettings: DitherSettings = {
   style: 'Floyd-Steinberg',
   pixelationScale: 5,
+  ditheringScale: 1,
   detailEnhancement: 51,
   brightness: 0,
   midtones: 1.00,

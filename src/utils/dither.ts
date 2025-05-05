@@ -71,7 +71,7 @@ export const applyAtkinson = (data: Uint8ClampedArray, width: number, height: nu
   }
 };
 
-export const applyBayer = (data: Uint8ClampedArray, width: number, height: number, noise: number) => {
+export const applyBayer = (data: Uint8ClampedArray, width: number, height: number, noise: number, scale: number = 1) => {
   // 4x4 Bayer matrix
   const bayerMatrix = [
     [ 0, 8, 2, 10],
@@ -88,8 +88,10 @@ export const applyBayer = (data: Uint8ClampedArray, width: number, height: numbe
       // Add noise
       gray += (Math.random() - 0.5) * noise;
       
-      // Apply Bayer threshold
-      const threshold = (bayerMatrix[y % 4][x % 4] / 16) * 255;
+      // Apply Bayer threshold with scaling
+      const scaledX = Math.floor(x / scale);
+      const scaledY = Math.floor(y / scale);
+      const threshold = (bayerMatrix[scaledY % 4][scaledX % 4] / 16) * 255;
       const newColor = gray < threshold ? 0 : 255;
       
       data[idx] = data[idx + 1] = data[idx + 2] = newColor;
@@ -97,7 +99,7 @@ export const applyBayer = (data: Uint8ClampedArray, width: number, height: numbe
   }
 };
 
-export const applyOrdered = (data: Uint8ClampedArray, width: number, height: number, noise: number) => {
+export const applyOrdered = (data: Uint8ClampedArray, width: number, height: number, noise: number, scale: number = 1) => {
   // 8x8 ordered dithering matrix
   const matrix = [
     [ 0, 48, 12, 60,  3, 51, 15, 63],
@@ -118,8 +120,10 @@ export const applyOrdered = (data: Uint8ClampedArray, width: number, height: num
       // Add noise
       gray += (Math.random() - 0.5) * noise;
       
-      // Apply ordered dithering
-      const threshold = (matrix[y % 8][x % 8] / 64) * 255;
+      // Apply ordered dithering with scaling
+      const scaledX = Math.floor(x / scale);
+      const scaledY = Math.floor(y / scale);
+      const threshold = (matrix[scaledY % 8][scaledX % 8] / 64) * 255;
       const newColor = gray < threshold ? 0 : 255;
       
       data[idx] = data[idx + 1] = data[idx + 2] = newColor;
@@ -165,6 +169,184 @@ export const preprocessImage = (data: Uint8ClampedArray, settings: DitherSetting
   }
 };
 
+export const applyStucki = (data: Uint8ClampedArray, width: number, height: number, noise: number) => {
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const idx = (y * width + x) * 4;
+      let gray = data[idx];
+      
+      // Add noise
+      gray += (Math.random() - 0.5) * noise;
+      
+      // Apply threshold
+      const newColor = gray < 128 ? 0 : 255;
+      data[idx] = data[idx + 1] = data[idx + 2] = newColor;
+      
+      // Calculate error
+      const error = gray - newColor;
+      
+      // Distribute error in Stucki pattern
+      if (x < width - 1) {
+        data[idx + 4] += error * 8/42; // right
+      }
+      if (x < width - 2) {
+        data[idx + 8] += error * 4/42; // right x2
+      }
+      if (y < height - 1) {
+        if (x > 1) {
+          data[idx + width * 4 - 8] += error * 2/42; // bottom left x2
+        }
+        if (x > 0) {
+          data[idx + width * 4 - 4] += error * 4/42; // bottom left
+        }
+        data[idx + width * 4] += error * 8/42; // bottom
+        if (x < width - 1) {
+          data[idx + width * 4 + 4] += error * 4/42; // bottom right
+        }
+        if (x < width - 2) {
+          data[idx + width * 4 + 8] += error * 2/42; // bottom right x2
+        }
+      }
+      if (y < height - 2) {
+        if (x > 1) {
+          data[idx + width * 8 - 8] += error * 1/42; // bottom left x2, y+2
+        }
+        if (x > 0) {
+          data[idx + width * 8 - 4] += error * 2/42; // bottom left, y+2
+        }
+        data[idx + width * 8] += error * 4/42; // bottom, y+2
+        if (x < width - 1) {
+          data[idx + width * 8 + 4] += error * 2/42; // bottom right, y+2
+        }
+        if (x < width - 2) {
+          data[idx + width * 8 + 8] += error * 1/42; // bottom right x2, y+2
+        }
+      }
+    }
+  }
+};
+
+export const applyBurkes = (data: Uint8ClampedArray, width: number, height: number, noise: number) => {
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const idx = (y * width + x) * 4;
+      let gray = data[idx];
+      
+      // Add noise
+      gray += (Math.random() - 0.5) * noise;
+      
+      // Apply threshold
+      const newColor = gray < 128 ? 0 : 255;
+      data[idx] = data[idx + 1] = data[idx + 2] = newColor;
+      
+      // Calculate error
+      const error = gray - newColor;
+      
+      // Distribute error in Burkes pattern
+      if (x < width - 1) {
+        data[idx + 4] += error * 8/32; // right
+      }
+      if (x < width - 2) {
+        data[idx + 8] += error * 4/32; // right x2
+      }
+      if (y < height - 1) {
+        if (x > 1) {
+          data[idx + width * 4 - 8] += error * 2/32; // bottom left x2
+        }
+        if (x > 0) {
+          data[idx + width * 4 - 4] += error * 4/32; // bottom left
+        }
+        data[idx + width * 4] += error * 8/32; // bottom
+        if (x < width - 1) {
+          data[idx + width * 4 + 4] += error * 4/32; // bottom right
+        }
+        if (x < width - 2) {
+          data[idx + width * 4 + 8] += error * 2/32; // bottom right x2
+        }
+      }
+    }
+  }
+};
+
+export const applySierra = (data: Uint8ClampedArray, width: number, height: number, noise: number) => {
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const idx = (y * width + x) * 4;
+      let gray = data[idx];
+      
+      // Add noise
+      gray += (Math.random() - 0.5) * noise;
+      
+      // Apply threshold
+      const newColor = gray < 128 ? 0 : 255;
+      data[idx] = data[idx + 1] = data[idx + 2] = newColor;
+      
+      // Calculate error
+      const error = gray - newColor;
+      
+      // Distribute error in Sierra pattern
+      if (x < width - 1) {
+        data[idx + 4] += error * 5/32; // right
+      }
+      if (x < width - 2) {
+        data[idx + 8] += error * 3/32; // right x2
+      }
+      if (y < height - 1) {
+        if (x > 1) {
+          data[idx + width * 4 - 8] += error * 2/32; // bottom left x2
+        }
+        if (x > 0) {
+          data[idx + width * 4 - 4] += error * 4/32; // bottom left
+        }
+        data[idx + width * 4] += error * 5/32; // bottom
+        if (x < width - 1) {
+          data[idx + width * 4 + 4] += error * 4/32; // bottom right
+        }
+        if (x < width - 2) {
+          data[idx + width * 4 + 8] += error * 2/32; // bottom right x2
+        }
+      }
+      if (y < height - 2) {
+        if (x > 0) {
+          data[idx + width * 8 - 4] += error * 2/32; // bottom left, y+2
+        }
+        data[idx + width * 8] += error * 3/32; // bottom, y+2
+        if (x < width - 1) {
+          data[idx + width * 8 + 4] += error * 2/32; // bottom right, y+2
+        }
+      }
+    }
+  }
+};
+
+export const applyHalftone = (data: Uint8ClampedArray, width: number, height: number, noise: number, scale: number = 1) => {
+  // 4x4 halftone pattern
+  const halftoneMatrix = [
+    [ 0, 12,  3, 15],
+    [ 8,  4, 11,  7],
+    [ 2, 14,  1, 13],
+    [10,  6,  9,  5]
+  ];
+  
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const idx = (y * width + x) * 4;
+      let gray = data[idx];
+      
+      // Add noise
+      gray += (Math.random() - 0.5) * noise;
+      
+      // Apply halftone threshold with scaling
+      const scaledX = Math.floor(x / scale);
+      const scaledY = Math.floor(y / scale);
+      const threshold = (halftoneMatrix[scaledY % 4][scaledX % 4] / 16) * 255;
+      const newColor = gray < threshold ? 0 : 255;
+      
+      data[idx] = data[idx + 1] = data[idx + 2] = newColor;
+    }
+  }
+};
+
 export const applyDither = (ctx: CanvasRenderingContext2D, img: HTMLImageElement, settings: DitherSettings) => {
   const { width, height } = ctx.canvas;
 
@@ -196,22 +378,34 @@ export const applyDither = (ctx: CanvasRenderingContext2D, img: HTMLImageElement
   // Preprocess image (grayscale, brightness, etc.)
   preprocessImage(data, settings);
 
-  // Apply selected dithering algorithm
+  // Apply selected dithering algorithm with dithering scale
   switch (settings.style) {
     case 'Floyd-Steinberg':
       applyFloydSteinberg(data, width, height, settings.noise);
       break;
     case 'Ordered':
-      applyOrdered(data, width, height, settings.noise);
+      applyOrdered(data, width, height, settings.noise, settings.ditheringScale);
       break;
     case 'Atkinson':
       applyAtkinson(data, width, height, settings.noise);
       break;
     case 'Bayer':
-      applyBayer(data, width, height, settings.noise);
+      applyBayer(data, width, height, settings.noise, settings.ditheringScale);
       break;
     case 'Random':
       applyRandom(data, width, height, settings.noise);
+      break;
+    case 'Stucki':
+      applyStucki(data, width, height, settings.noise);
+      break;
+    case 'Burkes':
+      applyBurkes(data, width, height, settings.noise);
+      break;
+    case 'Sierra':
+      applySierra(data, width, height, settings.noise);
+      break;
+    case 'Halftone':
+      applyHalftone(data, width, height, settings.noise, settings.ditheringScale);
       break;
   }
 
