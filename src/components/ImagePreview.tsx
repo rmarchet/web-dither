@@ -10,6 +10,8 @@ interface ImagePreviewProps {
   onCanvasRef: (ref: HTMLCanvasElement | null) => void;
 }
 
+const STORAGE_KEY = 'web-dither-image';
+
 const ImagePreview: React.FC<ImagePreviewProps> = ({
   image,
   settings,
@@ -26,6 +28,21 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
     }
     return () => onCanvasRef(null);
   }, [onCanvasRef]);
+
+  // Save image to localStorage when it changes
+  useEffect(() => {
+    if (image) {
+      localStorage.setItem(STORAGE_KEY, image);
+    }
+  }, [image]);
+
+  // Load image from localStorage on mount
+  useEffect(() => {
+    const savedImage = localStorage.getItem(STORAGE_KEY);
+    if (savedImage && !image) {
+      onImageUpload({ target: { value: savedImage } } as React.ChangeEvent<HTMLInputElement>);
+    }
+  }, []);
 
   useEffect(() => {
     if (image && canvasRef.current) {
@@ -82,6 +99,11 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
     }
   };
 
+  const handleClearImage = () => {
+    localStorage.removeItem(STORAGE_KEY);
+    onImageUpload({ target: { value: null } } as React.ChangeEvent<HTMLInputElement>);
+  };
+
   return (
     <div className={styles.imageArea}>
       {!image && (
@@ -105,6 +127,9 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
             </button>
             <button onClick={handleExport} className={styles.exportButton}>
               Export
+            </button>
+            <button onClick={handleClearImage} className={styles.clearButton}>
+              Clear Image
             </button>
           </div>
           <input

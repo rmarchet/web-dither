@@ -78,7 +78,7 @@ const Controls: React.FC<ControlsProps> = ({
             type="range"
             min="1"
             max="10"
-            step="0.1"
+            step="1"
             value={settings.ditheringScale}
             onChange={(e) => onSettingChange('ditheringScale', Number(e.target.value))}
             className={styles.slider}
