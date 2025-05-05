@@ -1,4 +1,19 @@
-export type DitherStyle = 'Floyd-Steinberg' | 'Ordered' | 'Atkinson' | 'Bayer' | 'Random' | 'Stucki' | 'Burkes' | 'Sierra' | 'Halftone';
+export type DitherStyle = 
+  | 'Floyd-Steinberg' 
+  | 'Ordered' 
+  | 'Atkinson' 
+  | 'Bayer' 
+  | 'Random' 
+  | 'Stucki' 
+  | 'Burkes' 
+  | 'Sierra' 
+  | 'Halftone'
+  | 'Jarvis-Judice-Ninke'
+  | 'Sierra-Lite'
+  | 'Two-Row-Sierra'
+  | 'Stevenson-Arce'
+  | 'Ostromukhov'
+  | 'Gaussian';
 
 export interface DitherSettings {
   style: DitherStyle;

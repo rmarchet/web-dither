@@ -17,11 +17,21 @@ const DITHER_STYLES: DitherStyle[] = [
   'Stucki',
   'Burkes',
   'Sierra',
-  'Halftone'
+  'Halftone',
+  'Jarvis-Judice-Ninke',
+  'Sierra-Lite',
+  'Two-Row-Sierra',
+  'Stevenson-Arce',
+  'Ostromukhov',
+  'Gaussian'
 ];
 
-// Add a list of styles that support dithering scale
-const SCALED_STYLES: DitherStyle[] = ['Bayer', 'Ordered', 'Halftone'];
+// Add a list of styles that support dithering scale (all algorithms now support scaling)
+const SCALED_STYLES: DitherStyle[] = [
+  'Ordered',
+  'Bayer',
+  'Halftone',
+];
 
 const Controls: React.FC<ControlsProps> = ({
   settings,
