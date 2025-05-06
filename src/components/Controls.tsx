@@ -26,11 +26,23 @@ const DITHER_STYLES: DitherStyle[] = [
   'Gaussian'
 ];
 
-// Add a list of styles that support dithering scale (all algorithms now support scaling)
+// Add a list of styles that support dithering scale
 const SCALED_STYLES: DitherStyle[] = [
+  'Floyd-Steinberg',
+  'Atkinson',
   'Ordered',
+  'Burkes',
+  'Sierra',
+  'Two-Row-Sierra',
+  'Stevenson-Arce',
+  'Sierra-Lite',
+  'Jarvis-Judice-Ninke',
+  'Ostromukhov',
+  'Gaussian',
   'Bayer',
   'Halftone',
+  'Random',
+  'Stucki',
 ];
 
 const Controls: React.FC<ControlsProps> = ({

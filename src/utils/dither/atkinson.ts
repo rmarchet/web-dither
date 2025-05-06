@@ -14,26 +14,26 @@ export const applyAtkinson = (data: Uint8ClampedArray, width: number, height: nu
       // Calculate error
       const error = (gray - newColor) / 8;
       
-      // Distribute error in Atkinson pattern with scaling
-      const scaledX = Math.floor(x / scale);
-      const scaledY = Math.floor(y / scale);
-      const offsets = [
-        4,              // right
-        8,              // right x2
-        width * 4 - 4,  // bottom left
-        width * 4,      // bottom
-        width * 4 + 4,  // bottom right
-        width * 8       // bottom x2
-      ];
-      
-      offsets.forEach(offset => {
-        const newIdx = idx + offset;
-        if (newIdx < data.length) {
-          data[newIdx] += error;
-          data[newIdx + 1] += error;
-          data[newIdx + 2] += error;
+      // Distribute error in Atkinson pattern
+      if (x + 1 < width) {
+        data[idx + 4] += error; // right
+        if (x + 2 < width) {
+          data[idx + 8] += error; // right x2
         }
-      });
+      }
+      
+      if (y + 1 < height) {
+        if (x - 1 >= 0) {
+          data[idx + width * 4 - 4] += error; // bottom left
+        }
+        data[idx + width * 4] += error; // bottom
+        if (x + 1 < width) {
+          data[idx + width * 4 + 4] += error; // bottom right
+        }
+        if (y + 2 < height) {
+          data[idx + width * 8] += error; // bottom x2
+        }
+      }
     }
   }
 }; 

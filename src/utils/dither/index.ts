@@ -11,4 +11,5 @@ export * from './ordered';
 export * from './random';
 export * from './burkes';
 export * from './sierra';
-export * from './halftone'; 
+export * from './halftone';
+export * from './stucki'; 

@@ -14,16 +14,17 @@ export const applyFloydSteinberg = (data: Uint8ClampedArray, width: number, heig
       // Calculate error
       const error = gray - newColor;
       
-      // Distribute error
-      if (x < width - 1) {
+      // Distribute error in Floyd-Steinberg pattern
+      if (x + 1 < width) {
         data[idx + 4] += error * 7/16; // right
       }
-      if (y < height - 1) {
-        if (x > 0) {
+      
+      if (y + 1 < height) {
+        if (x - 1 >= 0) {
           data[idx + width * 4 - 4] += error * 3/16; // bottom left
         }
         data[idx + width * 4] += error * 5/16; // bottom
-        if (x < width - 1) {
+        if (x + 1 < width) {
           data[idx + width * 4 + 4] += error * 1/16; // bottom right
         }
       }
