@@ -1,19 +1,6 @@
-export type DitherStyle = 
-  | 'Floyd-Steinberg' 
-  | 'Ordered' 
-  | 'Atkinson' 
-  | 'Bayer' 
-  | 'Random' 
-  | 'Stucki' 
-  | 'Burkes' 
-  | 'Sierra' 
-  | 'Halftone'
-  | 'Jarvis-Judice-Ninke'
-  | 'Sierra-Lite'
-  | 'Two-Row-Sierra'
-  | 'Stevenson-Arce'
-  | 'Ostromukhov'
-  | 'Gaussian';
+import { DITHER_STYLES } from './utils/constants';
+
+export type DitherStyle = typeof DITHER_STYLES[number];
 
 export interface DitherSettings {
   style: DitherStyle;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../App.module.css';
-import { DITHER_STYLES, SCALED_STYLES } from '../utils/constants';
+import { DITHER_STYLES, DITHER_OPTIONS, SCALED_STYLES } from '../utils/constants';
 import { DitherSettings, DitherStyle } from '../types';
 
 interface ControlsProps {
@@ -23,8 +23,12 @@ const Controls: React.FC<ControlsProps> = ({
           value={settings.style}
           onChange={(e) => onSettingChange('style', e.target.value as DitherStyle)}
         >
-          {DITHER_STYLES.map(style => (
-            <option key={style} value={style}>{style}</option>
+          {Object.entries(DITHER_OPTIONS).map(([group, styles]) => (
+            <optgroup key={group} label={group}>
+              {styles.map(style => (
+                <option key={style} value={style}>{style}</option>
+              ))}
+            </optgroup>
           ))}
         </select>
       </div>
