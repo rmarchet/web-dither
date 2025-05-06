@@ -34,6 +34,7 @@ export const DITHER_OPTIONS = {
     'Modulated Diffuse Y',
     'Smooth Diffuse',
     'Glitch',
+    'Lines Glitch',
   ],
 } as const;
 

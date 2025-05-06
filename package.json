@@ -1,11 +1,13 @@
 {
   "name": "web-dither",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A web application for applying dither effects to images",
   "type": "module",
   "scripts": {
     "dev": "rollup -c",
     "build": "rollup -c",
+    "clean": "rimraf dist",
+    "prestart": "npm run clean",
     "start": "rollup -c -w",
     "preview": "rollup -c"
   },
@@ -35,6 +37,7 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "postcss": "^8.5.3",
+    "rimraf": "^6.0.1",
     "rollup": "^3.20.2",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-dev": "^2.0.1",

@@ -128,6 +128,9 @@ function runDither(style: string, data: Uint8ClampedArray, width: number, height
     case 'Glitch':
       dither.applyGlitch(data, width, height);
       break;
+    case 'Lines Glitch':
+      dither.applyLinesGlitch(data, width, height);
+      break;
   }
 }
 
