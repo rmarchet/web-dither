@@ -22,26 +22,22 @@ export const DITHER_OPTIONS = {
     'Ostromukhov',
     'Gaussian'
   ],
+  'Ordered Dithering': [
+    'Bayer-Ordered',
+    'Bayer-Void',
+    'Random-Ordered',
+    'Bit Tone',
+    'Mosaic'
+  ],
+  'Glitch Effects': [
+    'Atkinson-VHS',
+    'Modulated Diffuse Y',
+    'Smooth Diffuse',
+  ],
 } as const;
 
 // Flatten all dither options into a single array
 export const DITHER_STYLES = Object.values(DITHER_OPTIONS).flat() as const;
 
 // Add a list of styles that support dithering scale
-export const SCALED_STYLES = [
-  'Floyd-Steinberg',
-  'Atkinson',
-  'Ordered',
-  'Burkes',
-  'Sierra',
-  'Two-Row-Sierra',
-  'Stevenson-Arce',
-  'Sierra-Lite',
-  'Jarvis-Judice-Ninke',
-  'Ostromukhov',
-  'Gaussian',
-  'Bayer',
-  'Halftone',
-  'Random',
-  'Stucki',
-] as const;
+export const SCALED_STYLES = DITHER_STYLES as const;

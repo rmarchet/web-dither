@@ -1,21 +1,5 @@
 import { DitherSettings } from '../types';
-import {
-  applyFloydSteinberg,
-  applyJarvisJudiceNinke,
-  applySierraLite,
-  applyTwoRowSierra,
-  applyStevensonArce,
-  applyOstromukhov,
-  applyGaussian,
-  applyAtkinson,
-  applyBayer,
-  applyOrdered,
-  applyRandom,
-  applyBurkes,
-  applySierra,
-  applyHalftone,
-  applyStucki
-} from './dither/index';
+import * as dither from './dither/index';
 
 const scaleDitheredImage = (ctx: CanvasRenderingContext2D, width: number, height: number, scale: number) => {
   // Create a temporary canvas at reduced size
@@ -58,6 +42,74 @@ export const preprocessImage = (data: Uint8ClampedArray, settings: DitherSetting
   }
 };
 
+function runDither(style: string, data: Uint8ClampedArray, width: number, height: number, noise: number) {
+  switch (style) {
+    case 'Floyd-Steinberg':
+      dither.applyFloydSteinberg(data, width, height, noise);
+      break;
+    case 'Jarvis-Judice-Ninke':
+      dither.applyJarvisJudiceNinke(data, width, height, noise);
+      break;
+    case 'Sierra-Lite':
+      dither.applySierraLite(data, width, height, noise);
+      break;
+    case 'Two-Row-Sierra':
+      dither.applyTwoRowSierra(data, width, height, noise);
+      break;
+    case 'Stevenson-Arce':
+      dither.applyStevensonArce(data, width, height, noise);
+      break;
+    case 'Ostromukhov':
+      dither.applyOstromukhov(data, width, height, noise);
+      break;
+    case 'Gaussian':
+      dither.applyGaussian(data, width, height, noise);
+      break;
+    case 'Atkinson':
+      dither.applyAtkinson(data, width, height, noise);
+      break;
+    case 'Atkinson-VHS':
+      dither.applyAtkinsonVHS(data, width, height, noise);
+      break;
+    case 'Bayer':
+      dither.applyBayer(data, width, height, noise);
+      break;
+    case 'Bayer-Ordered':
+      dither.applyBayerOrdered(data, width, height, noise);
+      break;
+    case 'Bayer-Void':
+      dither.applyBayerVoid(data, width, height, noise);
+      break;
+    case 'Ordered':
+      dither.applyOrdered(data, width, height, noise);
+      break;
+    case 'Random':
+      dither.applyRandom(data, width, height, noise);
+      break;
+    case 'Random-Ordered':
+      dither.applyRandomOrdered(data, width, height, noise);
+      break;
+    case 'Burkes':
+      dither.applyBurkes(data, width, height, noise);
+      break;
+    case 'Sierra':
+      dither.applySierra(data, width, height, noise);
+      break;
+    case 'Halftone':
+      dither.applyHalftone(data, width, height, noise);
+      break;
+    case 'Stucki':
+      dither.applyStucki(data, width, height, noise);
+      break;
+    case 'Smooth Diffuse':
+      dither.applySmoothDiffuse(data, width, height, noise);
+      break;
+    case 'Modulated Diffuse Y':
+      dither.applyModulatedDiffuseY(data, width, height, noise);
+      break;
+  }
+}
+
 export const applyDither = (ctx: CanvasRenderingContext2D, img: HTMLImageElement, settings: DitherSettings) => {
   const { width, height } = ctx.canvas;
 
@@ -86,121 +138,17 @@ export const applyDither = (ctx: CanvasRenderingContext2D, img: HTMLImageElement
   const imageData = ctx.getImageData(0, 0, width, height);
   const data = imageData.data;
 
-  // If dithering scale is greater than 1, scale down first
   if (settings.ditheringScale > 1) {
     const scaled = scaleDitheredImage(ctx, width, height, settings.ditheringScale);
     const { tempCtx: scaledCtx, scaledWidth: ditherWidth, scaledHeight: ditherHeight, imageData: scaledImageData, data: scaledData } = scaled;
-    
-    // Preprocess the scaled down image
     preprocessImage(scaledData, settings);
-    
-    // Apply selected dithering algorithm to scaled down image
-    switch (settings.style) {
-      case 'Floyd-Steinberg':
-        applyFloydSteinberg(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Jarvis-Judice-Ninke':
-        applyJarvisJudiceNinke(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Sierra-Lite':
-        applySierraLite(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Two-Row-Sierra':
-        applyTwoRowSierra(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Stevenson-Arce':
-        applyStevensonArce(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Ostromukhov':
-        applyOstromukhov(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Gaussian':
-        applyGaussian(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Atkinson':
-        applyAtkinson(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Bayer':
-        applyBayer(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Ordered':
-        applyOrdered(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Random':
-        applyRandom(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Burkes':
-        applyBurkes(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Sierra':
-        applySierra(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Halftone':
-        applyHalftone(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-      case 'Stucki':
-        applyStucki(scaledData, ditherWidth, ditherHeight, settings.noise);
-        break;
-    }
-    
-    // Put the scaled down dithered image back to the scaled canvas
+    runDither(settings.style, scaledData, ditherWidth, ditherHeight, settings.noise);
     scaledCtx.putImageData(scaledImageData, 0, 0);
-    
-    // Draw the scaled up result back to the main canvas
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(scaledCtx.canvas, 0, 0, width, height);
   } else {
-    // Preprocess the full resolution image
     preprocessImage(data, settings);
-    
-    // Apply dithering at full resolution
-    switch (settings.style) {
-      case 'Floyd-Steinberg':
-        applyFloydSteinberg(data, width, height, settings.noise);
-        break;
-      case 'Jarvis-Judice-Ninke':
-        applyJarvisJudiceNinke(data, width, height, settings.noise);
-        break;
-      case 'Sierra-Lite':
-        applySierraLite(data, width, height, settings.noise);
-        break;
-      case 'Two-Row-Sierra':
-        applyTwoRowSierra(data, width, height, settings.noise);
-        break;
-      case 'Stevenson-Arce':
-        applyStevensonArce(data, width, height, settings.noise);
-        break;
-      case 'Ostromukhov':
-        applyOstromukhov(data, width, height, settings.noise);
-        break;
-      case 'Gaussian':
-        applyGaussian(data, width, height, settings.noise);
-        break;
-      case 'Atkinson':
-        applyAtkinson(data, width, height, settings.noise);
-        break;
-      case 'Bayer':
-        applyBayer(data, width, height, settings.noise);
-        break;
-      case 'Ordered':
-        applyOrdered(data, width, height, settings.noise);
-        break;
-      case 'Random':
-        applyRandom(data, width, height, settings.noise);
-        break;
-      case 'Burkes':
-        applyBurkes(data, width, height, settings.noise);
-        break;
-      case 'Sierra':
-        applySierra(data, width, height, settings.noise);
-        break;
-      case 'Halftone':
-        applyHalftone(data, width, height, settings.noise);
-        break;
-      case 'Stucki':
-        applyStucki(data, width, height, settings.noise);
-        break;
-    }
+    runDither(settings.style, data, width, height, settings.noise);
     ctx.putImageData(imageData, 0, 0);
   }
 
