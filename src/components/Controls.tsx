@@ -142,6 +142,21 @@ const Controls: React.FC<ControlsProps> = ({
         />
       </div>
 
+      <div className={styles.controlGroup}>
+        <label className={styles.controlLabel}>
+          Luminance Threshold
+          <span className={styles.value}>{settings.luminanceThreshold}</span>
+        </label>
+        <input
+          type="range"
+          min="0"
+          max="255"
+          value={settings.luminanceThreshold}
+          onChange={(e) => onSettingChange('luminanceThreshold', Number(e.target.value))}
+          className={styles.slider}
+        />
+      </div>
+
       <div className={styles.buttonGroup}>
         <button onClick={onReset} className={styles.resetButton}>
           Reset

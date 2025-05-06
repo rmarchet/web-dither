@@ -38,6 +38,11 @@ export const preprocessImage = (data: Uint8ClampedArray, settings: DitherSetting
     // Apply midtones
     gray = Math.pow(gray / 255, settings.midtones) * 255;
 
+    // Apply luminance threshold (binarize) only if set
+    if (settings.luminanceThreshold >= 0) {
+     // gray = gray < settings.luminanceThreshold ? 0 : 255;
+    }
+
     data[i] = data[i + 1] = data[i + 2] = gray;
   }
 };

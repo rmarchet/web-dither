@@ -5,19 +5,22 @@ import Controls from './components/Controls';
 import { DitherSettings, DitherStyle } from './types';
 
 const STORAGE_KEY = 'web-dither-image';
+const DEFAULT_SETTINGS: DitherSettings = {
+  style: 'None',
+  pixelationScale: 1,
+  ditheringScale: 1,
+  detailEnhancement: 50,
+  brightness: 0,
+  midtones: 1,
+  noise: 0,
+  glow: 0,
+  luminanceThreshold: -1
+};
+
 
 const App: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);
-  const [settings, setSettings] = useState<DitherSettings>({
-    style: 'Floyd-Steinberg',
-    pixelationScale: 1,
-    ditheringScale: 1,
-    detailEnhancement: 50,
-    brightness: 0,
-    midtones: 1,
-    noise: 0,
-    glow: 0
-  });
+  const [settings, setSettings] = useState<DitherSettings>(DEFAULT_SETTINGS);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Load image from localStorage on mount
@@ -50,16 +53,7 @@ const App: React.FC = () => {
   };
 
   const handleReset = () => {
-    setSettings({
-      style: 'Floyd-Steinberg',
-      pixelationScale: 1,
-      ditheringScale: 1,
-      detailEnhancement: 50,
-      brightness: 0,
-      midtones: 1,
-      noise: 0,
-      glow: 0
-    });
+    setSettings(DEFAULT_SETTINGS);
   };
 
   const handleCanvasRef = (ref: HTMLCanvasElement | null) => {
