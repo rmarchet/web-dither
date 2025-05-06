@@ -27,13 +27,16 @@ export const DITHER_OPTIONS = {
     'Bayer-Void',
     'Random-Ordered',
     'Bit Tone',
-    'Mosaic'
+    'Mosaic',
+    'Bayer Matrix 2x2',
+    'Bayer Matrix 4x4',
   ],
   'Glitch Effects': [
     'Atkinson-VHS',
-    'Modulated Diffuse Y',
-    'Smooth Diffuse',
     'Glitch',
+    'Modulated Diffuse Y',
+    'Waveform',
+    'Smooth Diffuse',
     'Lines Glitch',
   ],
 } as const;

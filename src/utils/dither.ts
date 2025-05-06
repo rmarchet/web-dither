@@ -131,6 +131,21 @@ function runDither(style: string, data: Uint8ClampedArray, width: number, height
     case 'Lines Glitch':
       dither.applyLinesGlitch(data, width, height);
       break;
+    case 'Waveform':
+      dither.applyWaveform(data, width, height, noise);
+      break;
+    case 'Bayer Matrix 2x2':
+      dither.applyBayerMatrix2x2(data, width, height, noise);
+      break;
+    case 'Bayer Matrix 4x4':
+      dither.applyBayerMatrix4x4(data, width, height, noise);
+      break;
+    case 'Mosaic':
+      dither.applyMosaic(data, width, height, noise);
+      break;
+    case 'Bit Tone':
+      dither.applyBitTone(data, width, height, noise);
+      break;
   }
 }
 
