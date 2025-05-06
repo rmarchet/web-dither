@@ -1,6 +1,8 @@
 # Image Dither
 
-A web application that allows you to upload images and apply a Floyd-Steinberg dithering effect to them. Built with React 18, TypeScript, and Material-UI.
+A web application that allows you to upload images and apply a dithering effect to them.
+Several dithering algorithms provided.
+Built with React 18, TypeScript, and Material-UI.
 
 ## Features
 
@@ -12,7 +14,7 @@ A web application that allows you to upload images and apply a Floyd-Steinberg d
 ## Prerequisites
 
 - Node.js 20 or later
-- npm (comes with Node.js)
+- npm (comes with Node.js) or yarn (better)
 
 ## Installation
 
@@ -24,7 +26,7 @@ cd web-dither
 
 2. Install dependencies:
 ```bash
-npm install
+yarn install
 ```
 
 ## Development
@@ -32,7 +34,7 @@ npm install
 To start the development server:
 
 ```bash
-npm run dev
+yarn start
 ```
 
 This will start the development server at `http://localhost:3000`.
@@ -42,7 +44,7 @@ This will start the development server at `http://localhost:3000`.
 To create a production build:
 
 ```bash
-npm run build
+yarn build
 ```
 
 The built files will be in the `dist` directory.

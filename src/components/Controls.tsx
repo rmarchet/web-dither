@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../App.module.css';
+import { DITHER_STYLES, SCALED_STYLES } from '../utils/constants';
 import { DitherSettings, DitherStyle } from '../types';
 
 interface ControlsProps {
@@ -7,43 +8,6 @@ interface ControlsProps {
   onSettingChange: (setting: keyof DitherSettings, value: number | string) => void;
   onReset: () => void;
 }
-
-const DITHER_STYLES: DitherStyle[] = [
-  'Floyd-Steinberg',
-  'Ordered',
-  'Atkinson',
-  'Bayer',
-  'Random',
-  'Stucki',
-  'Burkes',
-  'Sierra',
-  'Halftone',
-  'Jarvis-Judice-Ninke',
-  'Sierra-Lite',
-  'Two-Row-Sierra',
-  'Stevenson-Arce',
-  'Ostromukhov',
-  'Gaussian'
-];
-
-// Add a list of styles that support dithering scale
-const SCALED_STYLES: DitherStyle[] = [
-  'Floyd-Steinberg',
-  'Atkinson',
-  'Ordered',
-  'Burkes',
-  'Sierra',
-  'Two-Row-Sierra',
-  'Stevenson-Arce',
-  'Sierra-Lite',
-  'Jarvis-Judice-Ninke',
-  'Ostromukhov',
-  'Gaussian',
-  'Bayer',
-  'Halftone',
-  'Random',
-  'Stucki',
-];
 
 const Controls: React.FC<ControlsProps> = ({
   settings,

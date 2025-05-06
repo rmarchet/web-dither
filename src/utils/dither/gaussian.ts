@@ -1,4 +1,9 @@
 export const applyGaussian = (data: Uint8ClampedArray, width: number, height: number, noise: number, scale: number = 1) => {
+  // Create a copy of the original data
+  const originalData = new Uint8ClampedArray(data);
+  // Create a buffer for error distribution
+  const errorBuffer = new Float32Array(width * height);
+  
   // Create a 3x3 Gaussian kernel
   const kernel = [
     [1, 2, 1],
@@ -10,14 +15,20 @@ export const applyGaussian = (data: Uint8ClampedArray, width: number, height: nu
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const idx = (y * width + x) * 4;
-      let gray = data[idx];
+      const errorIdx = y * width + x;
+      
+      // Get original gray value and add accumulated error
+      let gray = originalData[idx] + errorBuffer[errorIdx];
       
       // Add noise
       gray += (Math.random() - 0.5) * noise;
       
-      // Apply threshold
+      // Apply threshold and ensure strictly black or white
       const newColor = gray < 128 ? 0 : 255;
-      data[idx] = data[idx + 1] = data[idx + 2] = newColor;
+      data[idx] = newColor;
+      data[idx + 1] = newColor;
+      data[idx + 2] = newColor;
+      data[idx + 3] = 255; // Ensure full opacity
       
       // Calculate error
       const error = gray - newColor;
@@ -29,13 +40,11 @@ export const applyGaussian = (data: Uint8ClampedArray, width: number, height: nu
           const newX = x + (kx - 1);
           
           if (newY >= 0 && newY < height && newX >= 0 && newX < width) {
-            const newIdx = (newY * width + newX) * 4;
-            data[newIdx] += error * kernel[ky][kx] / kernelSum;
-            data[newIdx + 1] += error * kernel[ky][kx] / kernelSum;
-            data[newIdx + 2] += error * kernel[ky][kx] / kernelSum;
+            const newErrorIdx = newY * width + newX;
+            errorBuffer[newErrorIdx] += error * kernel[ky][kx] / kernelSum;
           }
         }
       }
     }
   }
-}; 
+};
