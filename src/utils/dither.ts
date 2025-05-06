@@ -25,22 +25,35 @@ export const preprocessImage = (data: Uint8ClampedArray, settings: DitherSetting
     // Convert to grayscale
     let gray = (data[i] + data[i + 1] + data[i + 2]) / 3;
     
+    // Reverse controls if invert is true
+    let detail = settings.detailEnhancement / 50; // 0–2, higher = more contrast
+    let brightness = settings.brightness;
+    let midtones = settings.midtones;
+    if (settings.invert) {
+      brightness = -brightness;
+      midtones = 1 / midtones;
+    }
+
     // Apply detail enhancement
-    const detail = settings.detailEnhancement / 50; // Convert to 0-2 range
     if (detail !== 1) {
       const diff = gray - 128;
       gray = 128 + diff * detail;
     }
 
     // Apply brightness
-    gray = Math.max(0, Math.min(255, gray + settings.brightness));
+    gray = Math.max(0, Math.min(255, gray + brightness));
     
     // Apply midtones
-    gray = Math.pow(gray / 255, settings.midtones) * 255;
+    gray = Math.pow(gray / 255, midtones) * 255;
 
     // Apply luminance threshold (binarize) only if set
     if (settings.luminanceThreshold >= 0) {
      // gray = gray < settings.luminanceThreshold ? 0 : 255;
+    }
+
+    // Invert if requested
+    if (settings.invert) {
+      gray = 255 - gray;
     }
 
     data[i] = data[i + 1] = data[i + 2] = gray;

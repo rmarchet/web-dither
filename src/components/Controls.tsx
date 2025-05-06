@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 import styles from '../App.module.css';
 import { DITHER_STYLES, DITHER_OPTIONS, SCALED_STYLES } from '../utils/constants';
 import { DitherSettings, DitherStyle } from '../types';
@@ -155,6 +156,18 @@ const Controls: React.FC<ControlsProps> = ({
           onChange={(e) => onSettingChange('luminanceThreshold', Number(e.target.value))}
           className={styles.slider}
         />
+      </div>
+
+      <div className={cn(styles.controlGroup, styles.checkboxGroup)}>
+        <label className={styles.controlLabel}>
+          <input
+            type="checkbox"
+            checked={settings.invert}
+            onChange={e => onSettingChange('invert', e.target.checked)}
+            className={styles.checkbox}
+          />
+          Invert
+        </label>
       </div>
 
       <div className={styles.buttonGroup}>

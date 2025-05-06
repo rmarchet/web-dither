@@ -12,6 +12,8 @@ export interface DitherSettings {
   noise: number;
   glow: number;
   luminanceThreshold: number;
+  verticalScanlineFrequency: number;
+  invert: boolean;
 }
 
 export const defaultSettings: DitherSettings = {
@@ -23,5 +25,7 @@ export const defaultSettings: DitherSettings = {
   midtones: 1.00,
   noise: 16,
   glow: 15,
-  luminanceThreshold: -1
+  luminanceThreshold: -1,
+  verticalScanlineFrequency: -1,
+  invert: false
 }; 
