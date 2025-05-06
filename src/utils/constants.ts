@@ -33,6 +33,7 @@ export const DITHER_OPTIONS = {
     'Atkinson-VHS',
     'Modulated Diffuse Y',
     'Smooth Diffuse',
+    'Glitch',
   ],
 } as const;
 

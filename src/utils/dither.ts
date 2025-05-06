@@ -125,6 +125,9 @@ function runDither(style: string, data: Uint8ClampedArray, width: number, height
     case 'Modulated Diffuse Y':
       dither.applyModulatedDiffuseY(data, width, height, noise);
       break;
+    case 'Glitch':
+      dither.applyGlitch(data, width, height);
+      break;
   }
 }
 

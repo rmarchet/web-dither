@@ -19,3 +19,4 @@ export * from './halftone';
 export * from './stucki';
 export * from './smoothDiffuse';
 export * from './modulatedDiffuseY';
+export * from './glitch';
