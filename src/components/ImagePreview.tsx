@@ -123,10 +123,10 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
           <canvas ref={canvasRef} className={styles.canvas} />
           <div className={styles.imageButtons}>
             <button onClick={handleChangeClick} className={styles.changeImageButton}>
-              Change Image
+              Load Image
             </button>
             <button onClick={handleExport} className={styles.exportButton}>
-              Export
+              Save
             </button>
             <button onClick={handleClearImage} className={styles.clearButton}>
               Clear Image

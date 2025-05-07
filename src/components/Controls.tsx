@@ -18,8 +18,9 @@ const Controls: React.FC<ControlsProps> = ({
   return (
     <div className={styles.controls}>
       <div className={cn(styles.controlGroup, styles.styleGroup)}>
-        <label className={styles.controlLabel}>Style</label>
-        <select 
+        <label htmlFor="style-select" className={styles.controlLabel}>Style:</label>
+        <select
+          id="style-select"
           className={styles.select}
           value={settings.style}
           onChange={(e) => onSettingChange('style', e.target.value as DitherStyle)}
@@ -32,21 +33,6 @@ const Controls: React.FC<ControlsProps> = ({
             </optgroup>
           ))}
         </select>
-      </div>
-
-      <div className={styles.controlGroup}>
-        <label className={styles.controlLabel}>
-          Pixelation Scale
-          <span className={styles.value}>{settings.pixelationScale}</span>
-        </label>
-        <input
-          type="range"
-          min="1"
-          max="20"
-          value={settings.pixelationScale}
-          onChange={(e) => onSettingChange('pixelationScale', Number(e.target.value))}
-          className={styles.slider}
-        />
       </div>
 
       {SCALED_STYLES.includes(settings.style) && (
@@ -130,21 +116,6 @@ const Controls: React.FC<ControlsProps> = ({
 
       <div className={styles.controlGroup}>
         <label className={styles.controlLabel}>
-          Glow
-          <span className={styles.value}>{settings.glow}</span>
-        </label>
-        <input
-          type="range"
-          min="0"
-          max="50"
-          value={settings.glow}
-          onChange={(e) => onSettingChange('glow', Number(e.target.value))}
-          className={styles.slider}
-        />
-      </div>
-
-      <div className={styles.controlGroup}>
-        <label className={styles.controlLabel}>
           Luminance Threshold
           <span className={styles.value}>{settings.luminanceThreshold}</span>
         </label>
@@ -157,6 +128,21 @@ const Controls: React.FC<ControlsProps> = ({
           className={styles.slider}
         />
       </div>
+
+    <div className={styles.controlGroup}>
+      <label className={styles.controlLabel}>
+        Blur
+        <span className={styles.value}>{settings.blur}</span>
+      </label>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value={settings.blur}
+        onChange={(e) => onSettingChange('blur', Number(e.target.value))}
+        className={styles.slider}
+      />
+    </div>
 
       <div className={cn(styles.controlGroup, styles.checkboxGroup)}>
         <label className={styles.controlLabel}>

@@ -60,4 +60,5 @@ export const DEFAULT_SETTINGS = {
   luminanceThreshold: -1,
   verticalScanlineFrequency: -1,
   invert: false,
+  blur: 0,
 };

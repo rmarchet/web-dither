@@ -22,6 +22,7 @@ export interface DitherSettings {
   blockSize?: number;
   scale?: number;
   phase?: number;
+  blur: number;
 }
 
 export interface ImageSettings {

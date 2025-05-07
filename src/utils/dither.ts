@@ -1,64 +1,7 @@
 import { DitherSettings, ImageSettings } from '../types';
+import { scaleDitheredImage } from './scaleDitheredImage';
+import { preprocessImage } from './preprocessImage';
 import * as dither from './dither/index';
-
-const scaleDitheredImage = (ctx: CanvasRenderingContext2D, width: number, height: number, scale: number) => {
-  // Create a temporary canvas at reduced size
-  const tempCanvas = document.createElement('canvas');
-  tempCanvas.width = Math.floor(width / scale);
-  tempCanvas.height = Math.floor(height / scale);
-  const tempCtx = tempCanvas.getContext('2d')!;
-  
-  // Draw the original image scaled down
-  tempCtx.imageSmoothingEnabled = false;
-  tempCtx.drawImage(ctx.canvas, 0, 0, tempCanvas.width, tempCanvas.height);
-  
-  // Get the scaled down image data
-  const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
-  const data = imageData.data;
-  
-  // Return the scaled down context and dimensions
-  return { tempCtx, scaledWidth: tempCanvas.width, scaledHeight: tempCanvas.height, imageData, data };
-};
-
-export const preprocessImage = (data: Uint8ClampedArray, settings: DitherSettings) => {
-  for (let i = 0; i < data.length; i += 4) {
-    // Convert to grayscale
-    let gray = (data[i] + data[i + 1] + data[i + 2]) / 3;
-    
-    // Reverse controls if invert is true
-    let detail = settings.detailEnhancement / 50; // 0–2, higher = more contrast
-    let brightness = settings.brightness;
-    let midtones = settings.midtones;
-    if (settings.invert) {
-      brightness = -brightness;
-      midtones = 1 / midtones;
-    }
-
-    // Apply detail enhancement
-    if (detail !== 1) {
-      const diff = gray - 128;
-      gray = 128 + diff * detail;
-    }
-
-    // Apply brightness
-    gray = Math.max(0, Math.min(255, gray + brightness));
-    
-    // Apply midtones
-    gray = Math.pow(gray / 255, midtones) * 255;
-
-    // Apply luminance threshold (binarize) only if set
-    if (settings.luminanceThreshold >= 0) {
-     // gray = gray < settings.luminanceThreshold ? 0 : 255;
-    }
-
-    // Invert if requested
-    if (settings.invert) {
-      gray = 255 - gray;
-    }
-
-    data[i] = data[i + 1] = data[i + 2] = gray;
-  }
-};
 
 function runDither(image: ImageSettings, settings: DitherSettings) {
   const { data, width, height } = image;
@@ -185,13 +128,13 @@ export const applyDither = (ctx: CanvasRenderingContext2D, img: HTMLImageElement
   if (settings.ditheringScale > 1) {
     const scaled = scaleDitheredImage(ctx, width, height, settings.ditheringScale);
     const { tempCtx: scaledCtx, scaledWidth: ditherWidth, scaledHeight: ditherHeight, imageData: scaledImageData, data: scaledData } = scaled;
-    preprocessImage(scaledData, settings);
+    preprocessImage({ data: scaledData, width: ditherWidth, height: ditherHeight }, settings);
     runDither({ data: scaledData, width: ditherWidth, height: ditherHeight }, settings);
     scaledCtx.putImageData(scaledImageData, 0, 0);
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(scaledCtx.canvas, 0, 0, width, height);
   } else {
-    preprocessImage(data, settings);
+    preprocessImage({ data, width, height }, settings);
     runDither({ data, width, height }, settings);
     ctx.putImageData(imageData, 0, 0);
   }
