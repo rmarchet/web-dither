@@ -38,6 +38,7 @@ export const DITHER_OPTIONS = {
     'Waveform',
     'Smooth Diffuse',
     'Lines Glitch',
+    'Stuki Diffusion Lines',
   ],
 } as const;
 

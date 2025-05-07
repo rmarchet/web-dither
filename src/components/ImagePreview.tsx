@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import styles from '../App.module.css';
 import { DitherSettings } from '../types';
 import { applyDither } from '../utils/dither';
+import styles from '../styles/ImagePreview.module.css';
 
 interface ImagePreviewProps {
   image: string | null;

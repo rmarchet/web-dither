@@ -146,6 +146,9 @@ function runDither(style: string, data: Uint8ClampedArray, width: number, height
     case 'Bit Tone':
       dither.applyBitTone(data, width, height, noise);
       break;
+    case 'Stuki Diffusion Lines':
+      dither.applyStukiDiffusionLines(data, width, height, noise);
+      break;
   }
 }
 

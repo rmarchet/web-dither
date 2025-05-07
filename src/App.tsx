@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
-import styles from './App.module.css';
 import ImagePreview from './components/ImagePreview';
 import Controls from './components/Controls';
 import { DitherSettings, DitherStyle } from './types';
+import styles from './styles/App.module.css';
 
 const STORAGE_KEY = 'web-dither-image';
 const DEFAULT_SETTINGS: DitherSettings = {

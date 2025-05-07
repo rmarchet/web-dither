@@ -1,8 +1,8 @@
 import React from 'react';
 import cn from 'classnames';
-import styles from '../App.module.css';
 import { DITHER_STYLES, DITHER_OPTIONS, SCALED_STYLES } from '../utils/constants';
 import { DitherSettings, DitherStyle } from '../types';
+import styles from '../styles/Controls.module.css';
 
 interface ControlsProps {
   settings: DitherSettings;
@@ -17,7 +17,7 @@ const Controls: React.FC<ControlsProps> = ({
 }) => {
   return (
     <div className={styles.controls}>
-      <div className={styles.controlGroup}>
+      <div className={cn(styles.controlGroup, styles.styleGroup)}>
         <label className={styles.controlLabel}>Style</label>
         <select 
           className={styles.select}
