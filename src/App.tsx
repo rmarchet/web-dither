@@ -49,6 +49,8 @@ const App: React.FC = () => {
     canvasRef.current = ref;
   };
 
+  const logo = '/logo.svg';
+
   return (
     <div className={styles.container}>
       <main className={styles.mainContent}>
@@ -63,6 +65,11 @@ const App: React.FC = () => {
           onSettingChange={handleSettingChange}
           onReset={handleReset}
         />
+        <div className={styles.logoContainer}>
+          <img src={logo} alt="D!TR" />
+          <p>D!TR - Dithering for the rest of us</p>
+          <p>© 2025 D!TR - All rights reserved</p>
+        </div> 
       </main>
     </div>
   );

@@ -6,13 +6,16 @@
 <rect x="1" y="207" width="103.4" height="103.4" fill="black"/>
 <rect x="207" y="414" width="103.4" height="103.4" fill="black"/>
 <rect x="310" y="414" width="103.4" height="103.4" fill="black"/>
+<rect x="104" y="414" width="103.4" height="103.4" fill="black"/>
 <rect x="206.8" y="207.8" width="103.4" height="103.4" fill="black"/>
 <rect x="206.8" y="1" width="103.4" height="103.4" fill="black"/>
 <rect width="103.4" height="103.4" fill="black"/>
-<rect x="413" y="311" width="103.4" height="103.4" fill="black"/>
-<rect x="310.2" y="311.2" width="103.4" height="103.4" fill="black"/>
-<rect x="310.2" y="104.4" width="103.4" height="103.4" fill="black"/>
-<rect x="413.6" y="207.8" width="103.4" height="103.4" fill="black"/>
+<rect x="414" y="309" width="103.4" height="103.4" fill="black"/>
+<rect x="310" y="105" width="103.4" height="103.4" fill="black"/>
+<rect x="414" y="412" width="103.4" height="103.4" fill="black"/>
+<rect x="414" width="103.4" height="103.4" fill="black"/>
+<rect x="414" y="206" width="103.4" height="103.4" fill="black"/>
+<rect x="414" y="103" width="103.4" height="103.4" fill="black"/>
 </g>
 <defs>
 <clipPath id="clip0_566_2">

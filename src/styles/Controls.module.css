@@ -33,6 +33,7 @@
 
 .checkboxGroup .controlLabel {
   justify-content: flex-start;
+  cursor: pointer;
 }
 
 .checkboxGroup input[type="checkbox"] {
@@ -45,7 +46,6 @@
   position: relative;
   cursor: pointer;
 }
-
 
 .checkboxGroup input[type="checkbox"]:checked {
   box-shadow: none;
@@ -64,9 +64,11 @@
 }
 
 .value {
-  color: var(--accent-color);
+  background-color: var(--accent-color);
+  color: #000;
+  padding: 0.05rem 0.25rem;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .select {
