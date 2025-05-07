@@ -5,10 +5,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
+  background: black;
   overflow: hidden;
   min-height: 400px;
-  padding: 0.5rem;
+  padding: 0;
   position: relative;
   margin-right: 320px;
 }
@@ -18,26 +18,24 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  border: 2px dashed #e1e1e1;
-  border-radius: 12px;
-  margin: 1rem;
+  border: 8px dashed #e1e1e155;
+  border-radius: 0;
   cursor: pointer;
   transition: border-color 0.2s, background-color 0.2s;
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 60px);
+  height: calc(100% - 60px);
 }
 
 .uploadArea:hover {
-  border-color: #3498db;
-  background-color: rgba(52, 152, 219, 0.05);
+  border-color: var(--accent-color);
 }
 
 .uploadText {
-  color: #7f8c8d;
-  font-size: 1.1rem;
+  color: #e1e1e155;
+  font-size: 2rem;
+  text-transform: uppercase;
+  word-spacing: .2rem;
   text-align: center;
-  margin-top: 1rem;
 }
 
 .canvas {
@@ -47,7 +45,6 @@
   object-fit: contain;
   background: white;
 }
-
 
 .imageContainer {
   position: relative;
@@ -59,58 +56,35 @@
 }
 
 .imageButtons {
-  position: absolute;
+  position: fixed;
   top: 1rem;
-  right: 1rem;
+  left: 1rem;
   display: flex;
-  gap: 0.5rem;
-}
-
-
-.exportButton {
-  flex: 1;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
-}
-
-.exportButton {
-  background: #3498db;
-  color: white;
-}
-
-.exportButton:hover {
-  background: #2980b9;
-  transform: translateY(-1px);
+  gap: 2px;
 }
 
 .changeImageButton, .exportButton, .clearButton {
-  padding: 0.75rem 1.25rem;
   background: rgba(52, 152, 219, 0.9);
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
+  font-weight: 600;
   transition: all 0.2s;
-  border: none;
   backdrop-filter: blur(4px);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 0 0 #000;
 }
 
 .changeImageButton:hover, .exportButton:hover, .clearButton:hover {
-  background: rgba(41, 128, 185, 1);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  opacity: 0.8;
+  transform: translateY(2px);
+  box-shadow: none;
 }
 
 .exportButton {
-  background: rgba(46, 204, 113, 0.9);
+  background: #88fcb6;
+  color: #000;
 }
 
-.exportButton:hover {
-  background: rgba(39, 174, 96, 1);
+.changeImageButton {
+  background: #f9fe5f;
+  color: #000;
 }
 
 .imageWrapper {
@@ -129,10 +103,6 @@
 }
 
 .clearButton {
-  background-color: #ff4444;
+  background-color: #ec512e;
   transition: background-color 0.2s;
-}
-
-.clearButton:hover {
-  background-color: #cc0000;
 }
