@@ -72,7 +72,6 @@
 }
 
 .changeImageButton:hover, .exportButton:hover, .clearButton:hover {
-  opacity: 0.8;
   transform: translateY(2px);
   box-shadow: none;
 }

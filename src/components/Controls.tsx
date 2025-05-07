@@ -58,7 +58,7 @@ const Controls: React.FC<ControlsProps> = ({
           <input
             type="range"
             min="1"
-            max="10"
+            max="15"
             step="1"
             value={settings.ditheringScale}
             onChange={(e) => onSettingChange('ditheringScale', Number(e.target.value))}
