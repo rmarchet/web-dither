@@ -1,3 +1,5 @@
+import { DitherSettings, ImageSettings } from '../../types';
+
 // Stucki error diffusion weights (horizontal and vertical only)
 const weights = [
   { dx: 1, dy: 0, factor: 8 / 42 }, // right
@@ -9,12 +11,10 @@ const weights = [
   { dx: 2, dy: 1, factor: 2 / 42 }, // next line, right 2
 ];
 
-export const applyStukiDiffusionLines = (
-  data: Uint8ClampedArray,
-  width: number,
-  height: number,
-  noise: number = 0
-) => {
+export const applyStukiDiffusionLines = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0 } = settings;
+
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const idx = (y * width + x) * 4;

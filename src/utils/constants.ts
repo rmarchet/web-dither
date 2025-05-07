@@ -47,3 +47,17 @@ export const DITHER_STYLES = Object.values(DITHER_OPTIONS).flat() as const;
 
 // Add a list of styles that support dithering scale
 export const SCALED_STYLES = DITHER_STYLES as const;
+
+export const DEFAULT_SETTINGS = {
+  style: DITHER_STYLES[0],
+  pixelationScale: 1,
+  ditheringScale: 1,
+  detailEnhancement: 51,
+  brightness: 0,
+  midtones: 1,
+  noise: 0,
+  glow: 0,
+  luminanceThreshold: -1,
+  verticalScanlineFrequency: -1,
+  invert: false,
+};

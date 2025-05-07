@@ -1,4 +1,9 @@
-export const applyOrdered = (data: Uint8ClampedArray, width: number, height: number, noise: number, scale: number = 1) => {
+import { DitherSettings, ImageSettings } from '../../types';
+
+export const applyOrdered = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0, scale = 1 } = settings;
+
   // 8x8 ordered dithering matrix
   const orderedMatrix = [
     [0, 32, 8, 40, 2, 34, 10, 42],

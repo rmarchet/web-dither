@@ -1,11 +1,12 @@
+import { DitherSettings, ImageSettings } from '../../types';
+
 // Glitch dither: horizontal sine-wave displacement of a dithered image
 export const applyGlitch = (
-  data: Uint8ClampedArray,
-  width: number,
-  height: number,
-  amplitude: number = 10,
-  frequency: number = 0.05
+  image: ImageSettings,
+  settings: DitherSettings
 ) => {
+  const { data, width, height } = image;
+  const { amplitude = 10, frequency = 0.05 } = settings;
   for (let y = 0; y < height; y++) {
     // Calculate horizontal glitch offset for this row
     const dx = Math.round(amplitude * Math.sin(frequency * y));

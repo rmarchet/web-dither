@@ -1,5 +1,10 @@
+import { DitherSettings, ImageSettings } from '../../types';
+
 // Atkinson-VHS: Monochrome Atkinson dithering with VHS scanline effect
-export const applyAtkinsonVHS = (data: Uint8ClampedArray, width: number, height: number, noise: number = 0): void => {
+export const applyAtkinsonVHS = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0 } = settings;
+
   // Atkinson dithering with scanlines (monochrome only)
   const originalData = new Uint8ClampedArray(data);
   const scanlineStrength = 0.25; // 0 = no scanline, 1 = full black

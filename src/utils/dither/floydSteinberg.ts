@@ -1,4 +1,10 @@
-export const applyFloydSteinberg = (data: Uint8ClampedArray, width: number, height: number, noise: number, scale: number = 1) => {
+import { DitherSettings, ImageSettings } from '../../types';
+
+export const applyFloydSteinberg = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0 } = settings;
+  const scale = 1;
+
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const idx = (y * width + x) * 4;

@@ -1,12 +1,9 @@
-export const applyLinesGlitch = (
-  data: Uint8ClampedArray,
-  width: number,
-  height: number,
-  amplitude: number = 21,
-  minSpacing: number = 4,
-  maxSpacing: number = 16,
-  maxThickness: number = 6
-) => {
+import { DitherSettings, ImageSettings } from '../../types';
+
+export const applyLinesGlitch = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { amplitude = 21, minSpacing = 4, maxSpacing = 16, maxThickness = 6 } = settings;
+
   // Copy original data for sampling
   const original = new Uint8ClampedArray(data);
 

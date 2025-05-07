@@ -1,4 +1,9 @@
-export const applyBayer = (data: Uint8ClampedArray, width: number, height: number, noise: number, scale: number = 1) => {
+import { DitherSettings, ImageSettings } from '../../types';
+
+export const applyBayer = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0, scale = 1 } = settings;
+
   // 4x4 Bayer matrix
   const bayerMatrix = [
     [0, 8, 2, 10],

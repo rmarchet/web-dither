@@ -1,4 +1,9 @@
-export const applyOstromukhov = (data: Uint8ClampedArray, width: number, height: number, noise: number, scale: number = 1) => {
+import { DitherSettings, ImageSettings } from '../../types';
+
+export const applyOstromukhov = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0, scale = 1 } = settings;
+
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const idx = (y * width + x) * 4;

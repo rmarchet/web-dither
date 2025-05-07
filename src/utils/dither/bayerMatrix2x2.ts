@@ -1,15 +1,14 @@
+import { DitherSettings, ImageSettings } from '../../types';
+
 // 2x2 Bayer matrix
 const bayer2x2 = [
   [0, 2],
   [3, 1],
 ];
 
-export const applyBayerMatrix2x2 = (
-  data: Uint8ClampedArray,
-  width: number,
-  height: number,
-  noise: number = 0
-) => {
+export const applyBayerMatrix2x2 = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0 } = settings;
   const matrixSize = 2;
   const matrixScale = 4; // 2x2 matrix has values 0-3
 

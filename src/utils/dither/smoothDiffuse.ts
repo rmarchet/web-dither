@@ -1,5 +1,9 @@
+import { DitherSettings, ImageSettings } from '../../types';
+
 // Smooth Diffuse: error diffusion with a soft, normalized 3x3 kernel
-export const applySmoothDiffuse = (data: Uint8ClampedArray, width: number, height: number, noise: number = 0): void => {
+export const applySmoothDiffuse = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0 } = settings;
   // Create a copy of the original data
   const originalData = new Uint8ClampedArray(data);
   // Create a buffer for error distribution

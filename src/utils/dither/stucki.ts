@@ -1,4 +1,9 @@
-export const applyStucki = (data: Uint8ClampedArray, width: number, height: number, noise: number, scale: number = 1) => {
+import { DitherSettings, ImageSettings } from '../../types';
+
+export const applyStucki = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0, scale = 1 } = settings;
+
   for (let y = 0; y < height; y += scale) {
     for (let x = 0; x < width; x += scale) {
       const idx = (y * width + x) * 4;

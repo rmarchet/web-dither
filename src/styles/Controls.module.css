@@ -43,6 +43,7 @@
   border-radius: 0;
   appearance: none;
   position: relative;
+  cursor: pointer;
 }
 
 

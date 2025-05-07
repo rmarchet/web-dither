@@ -1,3 +1,5 @@
+import { DitherSettings, ImageSettings } from '../../types';
+
 // 8x8 Bayer matrix with void pattern
 const BAYER_VOID_MATRIX = [
   [0, 48, 12, 60, 3, 51, 15, 63],
@@ -22,7 +24,10 @@ const VOID_PATTERN = [
   [0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-export const applyBayerVoid = (data: Uint8ClampedArray, width: number, height: number, noise: number = 0): void => {
+export const applyBayerVoid = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0 } = settings;
+
   // Create a copy of the original data to avoid modifying it during processing
   const originalData = new Uint8ClampedArray(data);
 

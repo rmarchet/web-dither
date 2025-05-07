@@ -1,22 +1,11 @@
 import React, { useState, useRef } from 'react';
 import ImagePreview from './components/ImagePreview';
 import Controls from './components/Controls';
+import { DEFAULT_SETTINGS } from './utils/constants';
 import { DitherSettings, DitherStyle } from './types';
 import styles from './styles/App.module.css';
 
 const STORAGE_KEY = 'web-dither-image';
-const DEFAULT_SETTINGS: DitherSettings = {
-  style: 'None',
-  pixelationScale: 1,
-  ditheringScale: 1,
-  detailEnhancement: 50,
-  brightness: 0,
-  midtones: 1,
-  noise: 0,
-  glow: 0,
-  luminanceThreshold: -1
-};
-
 
 const App: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);

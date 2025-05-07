@@ -14,18 +14,18 @@ export interface DitherSettings {
   luminanceThreshold: number;
   verticalScanlineFrequency: number;
   invert: boolean;
+  amplitude?: number;
+  frequency?: number;
+  minSpacing?: number;
+  maxSpacing?: number;
+  maxThickness?: number;
+  blockSize?: number;
+  scale?: number;
+  phase?: number;
 }
 
-export const defaultSettings: DitherSettings = {
-  style: 'Floyd-Steinberg',
-  pixelationScale: 5,
-  ditheringScale: 1,
-  detailEnhancement: 51,
-  brightness: 0,
-  midtones: 1.00,
-  noise: 16,
-  glow: 15,
-  luminanceThreshold: -1,
-  verticalScanlineFrequency: -1,
-  invert: false
-}; 
+export interface ImageSettings {
+  width: number;
+  height: number;
+  data: Uint8ClampedArray;
+}

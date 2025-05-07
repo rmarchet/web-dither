@@ -1,4 +1,10 @@
-export const applyGaussian = (data: Uint8ClampedArray, width: number, height: number, noise: number, scale: number = 1) => {
+import { DitherSettings, ImageSettings } from '../../types';
+
+export const applyGaussian = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0 } = settings;
+  const scale = 1;
+
   // Create a copy of the original data
   const originalData = new Uint8ClampedArray(data);
   // Create a buffer for error distribution

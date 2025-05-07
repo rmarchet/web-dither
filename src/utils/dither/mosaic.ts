@@ -1,10 +1,9 @@
-export const applyMosaic = (
-  data: Uint8ClampedArray,
-  width: number,
-  height: number,
-  noise: number = 0,
-  blockSize: number = 8,
-) => {
+import { DitherSettings, ImageSettings } from '../../types';
+
+export const applyMosaic = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0, blockSize = 8 } = settings;
+
   for (let by = 0; by < height; by += blockSize) {
     for (let bx = 0; bx < width; bx += blockSize) {
       // Compute average brightness for the block

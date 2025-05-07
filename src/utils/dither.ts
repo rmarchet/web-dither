@@ -1,4 +1,4 @@
-import { DitherSettings } from '../types';
+import { DitherSettings, ImageSettings } from '../types';
 import * as dither from './dither/index';
 
 const scaleDitheredImage = (ctx: CanvasRenderingContext2D, width: number, height: number, scale: number) => {
@@ -60,94 +60,96 @@ export const preprocessImage = (data: Uint8ClampedArray, settings: DitherSetting
   }
 };
 
-function runDither(style: string, data: Uint8ClampedArray, width: number, height: number, noise: number) {
+function runDither(image: ImageSettings, settings: DitherSettings) {
+  const { data, width, height } = image;
+  const { style, noise } = settings;
   switch (style) {
     case 'Floyd-Steinberg':
-      dither.applyFloydSteinberg(data, width, height, noise);
+      dither.applyFloydSteinberg(image, settings);
       break;
     case 'Jarvis-Judice-Ninke':
-      dither.applyJarvisJudiceNinke(data, width, height, noise);
+      dither.applyJarvisJudiceNinke(image, settings);
       break;
     case 'Sierra-Lite':
-      dither.applySierraLite(data, width, height, noise);
+      dither.applySierraLite(image, settings);
       break;
     case 'Two-Row-Sierra':
-      dither.applyTwoRowSierra(data, width, height, noise);
+      dither.applyTwoRowSierra(image, settings);
       break;
     case 'Stevenson-Arce':
-      dither.applyStevensonArce(data, width, height, noise);
+      dither.applyStevensonArce(image, settings);
       break;
     case 'Ostromukhov':
-      dither.applyOstromukhov(data, width, height, noise);
+      dither.applyOstromukhov(image, settings);
       break;
     case 'Gaussian':
-      dither.applyGaussian(data, width, height, noise);
+      dither.applyGaussian(image, settings);
       break;
     case 'Atkinson':
-      dither.applyAtkinson(data, width, height, noise);
+      dither.applyAtkinson(image, settings);
       break;
     case 'Atkinson-VHS':
-      dither.applyAtkinsonVHS(data, width, height, noise);
+      dither.applyAtkinsonVHS(image, settings);
       break;
     case 'Bayer':
-      dither.applyBayer(data, width, height, noise);
+      dither.applyBayer(image, settings);
       break;
     case 'Bayer-Ordered':
-      dither.applyBayerOrdered(data, width, height, noise);
+      dither.applyBayerOrdered(image, settings);
       break;
     case 'Bayer-Void':
-      dither.applyBayerVoid(data, width, height, noise);
+      dither.applyBayerVoid(image, settings);
       break;
     case 'Ordered':
-      dither.applyOrdered(data, width, height, noise);
+      dither.applyOrdered(image, settings);
       break;
     case 'Random':
-      dither.applyRandom(data, width, height, noise);
+      dither.applyRandom(image, settings);
       break;
     case 'Random-Ordered':
-      dither.applyRandomOrdered(data, width, height, noise);
+      dither.applyRandomOrdered(image, settings);
       break;
     case 'Burkes':
-      dither.applyBurkes(data, width, height, noise);
+      dither.applyBurkes(image, settings);
       break;
     case 'Sierra':
-      dither.applySierra(data, width, height, noise);
+      dither.applySierra(image, settings);
       break;
     case 'Halftone':
-      dither.applyHalftone(data, width, height, noise);
+      dither.applyHalftone(image, settings);
       break;
     case 'Stucki':
-      dither.applyStucki(data, width, height, noise);
+      dither.applyStucki(image, settings);
       break;
     case 'Smooth Diffuse':
-      dither.applySmoothDiffuse(data, width, height, noise);
+      dither.applySmoothDiffuse(image, settings);
       break;
     case 'Modulated Diffuse Y':
-      dither.applyModulatedDiffuseY(data, width, height, noise);
+      dither.applyModulatedDiffuseY(image, settings);
       break;
     case 'Glitch':
-      dither.applyGlitch(data, width, height);
+      dither.applyGlitch(image, settings);
       break;
     case 'Lines Glitch':
-      dither.applyLinesGlitch(data, width, height);
+      dither.applyLinesGlitch(image, settings);
       break;
     case 'Waveform':
-      dither.applyWaveform(data, width, height, noise);
+      dither.applyWaveform(image, settings);
       break;
     case 'Bayer Matrix 2x2':
-      dither.applyBayerMatrix2x2(data, width, height, noise);
+      dither.applyBayerMatrix2x2(image, settings);
       break;
     case 'Bayer Matrix 4x4':
-      dither.applyBayerMatrix4x4(data, width, height, noise);
+      dither.applyBayerMatrix4x4(image, settings);
       break;
     case 'Mosaic':
-      dither.applyMosaic(data, width, height, noise);
+      dither.applyMosaic(image, settings);
       break;
     case 'Bit Tone':
-      dither.applyBitTone(data, width, height, noise);
+      dither.applyBitTone(image, settings);
       break;
     case 'Stuki Diffusion Lines':
-      dither.applyStukiDiffusionLines(data, width, height, noise);
+      dither.applyStukiDiffusionLines(image, settings);
       break;
   }
 }
@@ -184,13 +186,13 @@ export const applyDither = (ctx: CanvasRenderingContext2D, img: HTMLImageElement
     const scaled = scaleDitheredImage(ctx, width, height, settings.ditheringScale);
     const { tempCtx: scaledCtx, scaledWidth: ditherWidth, scaledHeight: ditherHeight, imageData: scaledImageData, data: scaledData } = scaled;
     preprocessImage(scaledData, settings);
-    runDither(settings.style, scaledData, ditherWidth, ditherHeight, settings.noise);
+    runDither({ data: scaledData, width: ditherWidth, height: ditherHeight }, settings);
     scaledCtx.putImageData(scaledImageData, 0, 0);
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(scaledCtx.canvas, 0, 0, width, height);
   } else {
     preprocessImage(data, settings);
-    runDither(settings.style, data, width, height, settings.noise);
+    runDither({ data, width, height }, settings);
     ctx.putImageData(imageData, 0, 0);
   }
 

@@ -1,5 +1,9 @@
+import { DitherSettings, ImageSettings } from '../../types';
+
 // Modulated Diffuse Y: error diffusion with Y-axis modulation that creates vertical streaks
-export const applyModulatedDiffuseY = (data: Uint8ClampedArray, width: number, height: number, noise: number = 0): void => {
+export const applyModulatedDiffuseY = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0 } = settings;
   // Create a copy of the original data
   const originalData = new Uint8ClampedArray(data);
   // Create a buffer for error distribution

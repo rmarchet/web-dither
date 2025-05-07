@@ -1,10 +1,10 @@
-export const applyBitTone = (
-  data: Uint8ClampedArray,
-  width: number,
-  height: number,
-  noise: number = 0,
-  levels: number = 4,
-) => {
+import { DitherSettings, ImageSettings } from '../../types';
+
+export const applyBitTone = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0 } = settings;
+  let levels = 4;
+
   // Clamp levels to at least 2
   levels = Math.max(2, Math.round(levels));
   const step = 255 / (levels - 1);

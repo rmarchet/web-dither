@@ -1,12 +1,8 @@
-export const applyWaveform = (
-  data: Uint8ClampedArray,
-  width: number,
-  height: number,
-  noise: number = 0,
-  amplitude: number = 64, // amplitude of the threshold wave
-  frequency: number = 0.08, // frequency of the wave
-  phase: number = 0, // phase offset
-) => {
+import { DitherSettings, ImageSettings } from '../../types';
+
+export const applyWaveform = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0, amplitude = 64, frequency = 0.08, phase = 0 } = settings;
   // For each row, modulate the threshold using a sine wave
   for (let y = 0; y < height; y++) {
     // Calculate the threshold for this row

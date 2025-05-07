@@ -1,3 +1,5 @@
+import { DitherSettings, ImageSettings } from '../../types';
+
 // 4x4 Bayer matrix
 const bayer4x4 = [
   [ 0,  8,  2, 10],
@@ -6,12 +8,9 @@ const bayer4x4 = [
   [15,  7, 13,  5],
 ];
 
-export const applyBayerMatrix4x4 = (
-  data: Uint8ClampedArray,
-  width: number,
-  height: number,
-  noise: number = 0
-) => {
+export const applyBayerMatrix4x4 = (image: ImageSettings, settings: DitherSettings) => {
+  const { data, width, height } = image;
+  const { noise = 0 } = settings;
   const matrixSize = 4;
   const matrixScale = 16; // 4x4 matrix has values 0-15
 
