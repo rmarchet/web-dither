@@ -1,6 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 import { DITHER_STYLES, DITHER_OPTIONS, SCALED_STYLES } from '../utils/constants';
+import { ModulatedDiffuseControls } from './Controls/ModulatedDiffuseControls';
 import { DitherSettings, DitherStyle } from '../types';
 import styles from '../styles/Controls.module.css';
 
@@ -143,6 +144,11 @@ const Controls: React.FC<ControlsProps> = ({
         className={styles.slider}
       />
     </div>
+
+      {/* Show these sliders only for Modulated Diffuse Y style */}
+      {settings.style === 'Modulated Diffuse Y' && (
+        <ModulatedDiffuseControls settings={settings} onSettingChange={onSettingChange} />
+      )}
 
       <div className={cn(styles.controlGroup, styles.checkboxGroup)}>
         <label className={styles.controlLabel}>

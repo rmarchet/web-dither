@@ -61,4 +61,8 @@ export const DEFAULT_SETTINGS = {
   verticalScanlineFrequency: -1,
   invert: false,
   blur: 0,
+  amplitude: 1.0,
+  frequency: 0.08,
+  phase: 0,
+  blockSize: 1,
 };
