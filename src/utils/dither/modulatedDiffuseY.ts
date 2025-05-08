@@ -22,38 +22,42 @@ export const applyModulatedDiffuseY = (
     data[i + 3] = 255;
   }
 
-  // FM modulation/demodulation per row
+  // 1. FM modulation/demodulation for all rows, collect all demodulated values
+  const allDemodulated: number[] = [];
+  const demodulatedRows: Float32Array[] = [];
   for (let y = 0; y < height; y++) {
-    // 1. Get the grayscale signal for this row
     const signal = new Float32Array(width);
     for (let x = 0; x < width; x++) {
-      signal[x] = original[(y * width + x) * 4] / 255.0; // normalize to 0..1
+      signal[x] = original[(y * width + x) * 4] / 255.0;
     }
-
-    // 2. FM modulation
     const omega = 2 * Math.PI * (frequency / ditheringScale);
     let sigInt = 0;
-    let prevM = 0;
     const modulated = new Float32Array(width);
     for (let x = 0; x < width; x++) {
       sigInt += signal[x] * amplitude;
       modulated[x] = Math.cos(omega * x + sigInt + phase);
     }
-
-    // 3. Demodulation (derivative)
     const demodulated = new Float32Array(width);
     for (let x = 1; x < width; x++) {
       demodulated[x] = Math.abs(modulated[x] - modulated[x - 1]);
+      allDemodulated.push(demodulated[x]);
     }
+    demodulatedRows.push(demodulated);
+  }
 
-    // 4. Normalize and write back to image
-    let min = Infinity, max = -Infinity;
+  // 2. Find global min and max
+  let globalMin = Infinity, globalMax = -Infinity;
+  for (let i = 0; i < allDemodulated.length; i++) {
+    if (allDemodulated[i] < globalMin) globalMin = allDemodulated[i];
+    if (allDemodulated[i] > globalMax) globalMax = allDemodulated[i];
+  }
+  const epsilon = 1e-6;
+
+  // 3. Write back to image using global normalization
+  for (let y = 0; y < height; y++) {
+    const demodulated = demodulatedRows[y];
     for (let x = 0; x < width; x++) {
-      if (demodulated[x] < min) min = demodulated[x];
-      if (demodulated[x] > max) max = demodulated[x];
-    }
-    for (let x = 0; x < width; x++) {
-      const v = ((demodulated[x] - min) / (max - min)) * 255;
+      const v = ((demodulated[x] - globalMin) / (globalMax - globalMin + epsilon)) * 255;
       const bw = v > 128 ? 255 : 0;
       for (let dx = -Math.floor(blockSize / 2); dx <= Math.floor(blockSize / 2); dx++) {
         const drawX = x + dx;
