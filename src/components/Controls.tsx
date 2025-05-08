@@ -145,8 +145,8 @@ const Controls: React.FC<ControlsProps> = ({
       />
     </div>
 
-      {/* Show these sliders only for Modulated Diffuse Y style */}
-      {settings.style === 'Modulated Diffuse Y' && (
+      {/* Show these sliders only for Modulated Diffuse Y or Modulated Diffuse X style */}
+      {(settings.style === 'Modulated Diffuse Y' || settings.style === 'Modulated Diffuse X') && (
         <ModulatedDiffuseControls settings={settings} onSettingChange={onSettingChange} />
       )}
 
