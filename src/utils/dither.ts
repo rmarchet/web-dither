@@ -70,6 +70,9 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
     case 'Modulated Diffuse Y':
       dither.applyModulatedDiffuseY(image, settings);
       break;
+    case 'Modulated Diffuse X':
+      dither.applyModulatedDiffuseX(image, settings);
+      break;
     case 'Glitch':
       dither.applyGlitch(image, settings);
       break;

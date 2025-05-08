@@ -35,6 +35,7 @@ export const DITHER_OPTIONS = {
     'Atkinson-VHS',
     'Glitch',
     'Modulated Diffuse Y',
+    'Modulated Diffuse X',
     'Waveform',
     'Smooth Diffuse',
     'Lines Glitch',

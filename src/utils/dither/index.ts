@@ -21,6 +21,7 @@ export * from './halftone';
 export * from './stucki';
 export * from './smoothDiffuse';
 export * from './modulatedDiffuseY';
+export * from './modulatedDiffuseX';
 export * from './glitch';
 export * from './linesGlitch';
 export * from './waveform';
