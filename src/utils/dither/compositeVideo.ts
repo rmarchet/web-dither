@@ -63,35 +63,40 @@ export const applyCompositeVideo = (
   settings: DitherSettings
 ) => {
   const { data, width, height } = image;
-  
+  const amplitude = settings.amplitude ?? 1;
+  const phase = settings.phase ?? 0;
+  const noise = settings.noise ?? 0;
+  const frequency = settings.frequency ?? 1;
+
   // --- Parameters (tune as needed or expose as settings) ---
   const composite_in_chroma_lowpass = true;
-  const subcarrier_amplitude = 40;
-  const subcarrier_amplitude_back = 40;
-  const video_scanline_phase_shift = 0;
-  const video_scanline_phase_shift_offset = 0;
-  const composite_preemphasis = 1;
+  const subcarrier_amplitude = 40 * amplitude;
+  const subcarrier_amplitude_back = 40 * amplitude;
+  const video_scanline_phase_shift = phase;
+  const video_scanline_phase_shift_offset = phase;
+  const composite_preemphasis = 1; // Composite preemphasis: controls the amount of preemphasis applied to the signal
   const composite_preemphasis_cut = 315000000 / 88.0;
-  const video_noise = 4000;
-  const video_chroma_noise = 4000;
-  const video_chroma_phase_noise = 15;
+  const video_noise = 4000 * noise;
+  const video_chroma_noise = 4000 * noise;
+  const video_chroma_phase_noise = 15 * amplitude;
   const composite_out_chroma_lowpass = true;
   const composite_out_chroma_lowpass_lite = false;
-  const video_chroma_loss = 0.24;
+  const video_chroma_loss = 0.124; // loss of color information
   const vhs_chroma_vert_blend = true;
   const vhs_sharpen = true;
   const vhs_out_sharpen = 2;
   const video_recombine = 0;
   const scanlines_scale = 1.5;
   const fm = true;
-  const fm_omega = 0.62;
-  const fm_phase = 2;
-  const fm_lightness = 0.62;
-  const fm_quantize = 0;
-  const fm_noise = true;
-  const fm_noise_start = 0.92;
-  const fm_noise_stop = 1.0;
+  const fm_omega = 0.62 * frequency;
+  const fm_phase = phase; // FM phase: controls the phase of the FM wave
+  const fm_lightness = 0.62; // FM lightness: controls how much of the signal is used for FM
+  const fm_quantize = 0; // FM quantization: controls how much of the signal is quantized
+  const fm_noise = noise > 0; // FM noise: controls if noise is added to the FM signal
+  const fm_noise_start = 0.92 - 0.5 * noise;
+  const fm_noise_stop = 1.0 + 0.5 * noise;
   const emulating_vhs = [2400000, 320000, 9]; // VHS_SP
+  const fm_modulation_strength = 32 * amplitude; // Use in FM modulation step
 
   // --- 1. Convert to YIQ ---
   const Y = new Float32Array(width * height);
@@ -272,8 +277,11 @@ export const applyCompositeVideo = (
         fdem = lpf.lowpass(fdem);
         fdem = lpf2.lowpass(fdem);
         fdem = lpf3.lowpass(fdem);
-        // Modulate Y as an offset, not a replacement
-        Y[idx] = clamp(Y[idx] + (fdem - 0.5) * 32, 0, 255);
+        const modulated = Y[idx] + (fdem - 0.5) * fm_modulation_strength;
+        Y[idx] = clamp(
+          fm_lightness * Y[idx] + (1 - fm_lightness) * modulated,
+          0, 255
+        );
       }
     }
   }
