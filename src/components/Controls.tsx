@@ -166,6 +166,18 @@ export const Controls: React.FC<ControlsProps> = ({
         </label>
       </div>
 
+      <div className={cn(styles.controlGroup, styles.checkboxGroup)}>
+        <label className={styles.controlLabel}>
+          <input
+            type="checkbox"
+            checked={settings.grayscale}
+            onChange={e => onSettingChange('grayscale', e.target.checked)}
+            className={styles.checkbox}
+          />
+          Force grayscale
+        </label>
+      </div>
+
       <div className={styles.buttonGroup}>
         <button onClick={onReset} className={styles.resetButton}>
           Reset

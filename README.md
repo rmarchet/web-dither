@@ -61,9 +61,11 @@ The built files will be in the `dist` directory.
 
 ## How to Use
 
-1. Click the "Upload Image" button to select an image from your computer
-2. The application will display the original image alongside the processed version
-3. Select a dithering or modulation style from the dropdown
+<img src="screenshot.png" alt="D!TR main UI" />
+
+1. Click the "Load Image" button to select an image from your computer
+2. The application will display a grayscale version of the image with no filters applied
+3. Select a dithering or modulation style from the dropdown on the right
 4. For **Modulated Diffuse Y** or **Modulated Diffuse X**, use the dedicated sliders to control amplitude, frequency, phase, block size, noise, and line spacing for analog/CRT/glitch effects
 5. The effect is applied automatically and updates in real time
 

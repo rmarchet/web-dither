@@ -64,6 +64,7 @@ export const DEFAULT_SETTINGS = {
   frequency: 0.02,
   phase: 0,
   blockSize: 1,
+  grayscale: true,
 };
 
 export const STORAGE_KEY = 'web-dither-image';

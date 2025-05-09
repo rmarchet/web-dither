@@ -14,6 +14,7 @@ export interface DitherSettings {
   luminanceThreshold: number;
   verticalScanlineFrequency: number;
   invert: boolean;
+  grayscale: boolean;
   amplitude?: number;
   frequency?: number;
   minSpacing?: number;
