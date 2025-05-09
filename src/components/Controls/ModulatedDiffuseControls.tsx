@@ -20,7 +20,7 @@ export const ModulatedDiffuseControls = ({
         <input
           type="range"
           min="0.1"
-          max="5"
+          max="3"
           step="0.01"
           value={settings.amplitude}
           onChange={(e) => onSettingChange('amplitude', Number(e.target.value))}
@@ -35,7 +35,7 @@ export const ModulatedDiffuseControls = ({
         <input
           type="range"
           min="0.005"
-          max="0.5"
+          max="0.3"
           step="0.005"
           value={settings.frequency}
           onChange={(e) => onSettingChange('frequency', Number(e.target.value))}

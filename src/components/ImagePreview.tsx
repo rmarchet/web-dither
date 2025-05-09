@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { DitherSettings } from '../types';
 import { applyDither } from '../utils/dither';
+import { Actions } from './Actions';
 import styles from '../styles/ImagePreview.module.css';
 
 interface ImagePreviewProps {
@@ -12,7 +13,7 @@ interface ImagePreviewProps {
 
 const STORAGE_KEY = 'web-dither-image';
 
-const ImagePreview: React.FC<ImagePreviewProps> = ({
+export const ImagePreview: React.FC<ImagePreviewProps> = ({
   image,
   settings,
   onImageUpload,
@@ -121,17 +122,11 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
       {image && (
         <div className={styles.imageContainer}>
           <canvas ref={canvasRef} className={styles.canvas} />
-          <div className={styles.imageButtons}>
-            <button onClick={handleChangeClick} className={styles.changeImageButton}>
-              Load Image
-            </button>
-            <button onClick={handleExport} className={styles.exportButton}>
-              Save
-            </button>
-            <button onClick={handleClearImage} className={styles.clearButton}>
-              Clear Image
-            </button>
-          </div>
+          <Actions
+            onChangeImage={handleChangeClick}
+            onExport={handleExport}
+            onClearImage={handleClearImage}
+          />
           <input
             ref={fileInputRef}
             type="file"
@@ -144,5 +139,3 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
     </div>
   );
 };
-
-export default ImagePreview; 

@@ -11,7 +11,7 @@ interface ControlsProps {
   onReset: () => void;
 }
 
-const Controls: React.FC<ControlsProps> = ({
+export const Controls: React.FC<ControlsProps> = ({
   settings,
   onSettingChange,
   onReset
@@ -99,22 +99,25 @@ const Controls: React.FC<ControlsProps> = ({
           className={styles.slider}
         />
       </div>
+      {(settings.style !== 'Modulated Diffuse Y' && settings.style !== 'Modulated Diffuse X') && (
+        <div className={styles.controlGroup}>
+          <label className={styles.controlLabel}>
+            Noise
+            <span className={styles.value}>{settings.noise}</span>
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="50"
+            value={settings.noise}
+            onChange={(e) => onSettingChange('noise', Number(e.target.value))}
+            className={styles.slider}
+          />
+        </div>
+      )}
 
-      <div className={styles.controlGroup}>
-        <label className={styles.controlLabel}>
-          Noise
-          <span className={styles.value}>{settings.noise}</span>
-        </label>
-        <input
-          type="range"
-          min="0"
-          max="50"
-          value={settings.noise}
-          onChange={(e) => onSettingChange('noise', Number(e.target.value))}
-          className={styles.slider}
-        />
-      </div>
-
+    
+    {(settings.style === 'AAAAAA') && ( // temporarily disabled 
       <div className={styles.controlGroup}>
         <label className={styles.controlLabel}>
           Luminance Threshold
@@ -129,6 +132,7 @@ const Controls: React.FC<ControlsProps> = ({
           className={styles.slider}
         />
       </div>
+      )}
 
     <div className={styles.controlGroup}>
       <label className={styles.controlLabel}>
@@ -170,5 +174,3 @@ const Controls: React.FC<ControlsProps> = ({
     </div>
   );
 };
-
-export default Controls; 

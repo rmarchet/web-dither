@@ -1,5 +1,3 @@
-//  <optgroup label="_________">
-
 // Define the dither styles as a const array
 export const DITHER_OPTIONS = {
   'Default': [
@@ -62,8 +60,10 @@ export const DEFAULT_SETTINGS = {
   verticalScanlineFrequency: -1,
   invert: false,
   blur: 0,
-  amplitude: 1.0,
-  frequency: 0.08,
+  amplitude: 0.5,
+  frequency: 0.02,
   phase: 0,
   blockSize: 1,
 };
+
+export const STORAGE_KEY = 'web-dither-image';

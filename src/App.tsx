@@ -1,11 +1,10 @@
 import React, { useState, useRef } from 'react';
-import ImagePreview from './components/ImagePreview';
-import Controls from './components/Controls';
-import { DEFAULT_SETTINGS } from './utils/constants';
+import { ImagePreview } from './components/ImagePreview';
+import { Controls } from './components/Controls';
+import { Footer } from './components/Footer';
+import { DEFAULT_SETTINGS, STORAGE_KEY } from './utils/constants';
 import { DitherSettings, DitherStyle } from './types';
 import styles from './styles/App.module.css';
-
-const STORAGE_KEY = 'web-dither-image';
 
 const App: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -49,8 +48,6 @@ const App: React.FC = () => {
     canvasRef.current = ref;
   };
 
-  const logo = '/logo.svg';
-
   return (
     <div className={styles.container}>
       <main className={styles.mainContent}>
@@ -65,14 +62,10 @@ const App: React.FC = () => {
           onSettingChange={handleSettingChange}
           onReset={handleReset}
         />
-        <div className={styles.logoContainer}>
-          <img src={logo} alt="D!TR" />
-          <p>D!TR - Dithering for the rest of us</p>
-          <p>© 2025 D!TR - All rights reserved</p>
-        </div> 
+        <Footer /> 
       </main>
     </div>
   );
 };
 
-export default App; 
+export default App;
