@@ -38,6 +38,7 @@ export const DITHER_OPTIONS = {
     'Smooth Diffuse',
     'Lines Glitch',
     'Stuki Diffusion Lines',
+    'Composite Video',
   ],
 } as const;
 
@@ -51,7 +52,7 @@ export const DEFAULT_SETTINGS = {
   style: DITHER_STYLES[0],
   pixelationScale: 1,
   ditheringScale: 1,
-  detailEnhancement: 51,
+  detailEnhancement: 50,
   brightness: 0,
   midtones: 1,
   noise: 0,

@@ -73,6 +73,9 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
     case 'Modulated Diffuse X':
       dither.applyModulatedDiffuseX(image, settings);
       break;
+    case 'Composite Video':
+      dither.applyCompositeVideo(image, settings);
+      break;
     case 'Glitch':
       dither.applyGlitch(image, settings);
       break;
