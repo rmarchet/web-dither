@@ -1,26 +1,36 @@
-# Image Dither
+<img src="public/logo.svg" width="150" alt="D!TR" />
 
-A web application that allows you to upload images and apply a dithering effect to them.
-Several dithering algorithms provided.
-Built with React 18, TypeScript, and Material-UI.
+# D!TR - Image Dithering
+
+A web application that allows you to upload images and apply a variety of dithering and analog modulation effects.
 
 ## Features
 
 - Image upload with preview
-- Real-time dithering effect application
-- Side-by-side comparison of original and dithered images
-- Modern, responsive UI with Material-UI components
+- Real-time dithering, glitch and analog modulation effect application
+
+- Modern, responsive UI
+- **FM-based analog glitch effects:**
+  - **Modulated Diffuse Y**: Frequency modulation/demodulation along the Y axis (horizontal scanlines)
+  - **Modulated Diffuse X**: Frequency modulation/demodulation along the X axis (vertical scanlines)
+- Interactive controls for:
+  - Amplitude
+  - Frequency
+  - Phase
+  - Noise (glitch intensity)
+- Classic dithering algorithms (Floyd-Steinberg, Bayer, Atkinson, etc.)
+- Invert, scale, blur, and other image adjustments
 
 ## Prerequisites
 
 - Node.js 20 or later
-- npm (comes with Node.js) or yarn (better)
+- npm (comes with Node.js) or yarn (recommended)
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/rmarchet/web-dither.git
 cd web-dither
 ```
 
@@ -52,13 +62,14 @@ The built files will be in the `dist` directory.
 ## How to Use
 
 1. Click the "Upload Image" button to select an image from your computer
-2. The application will display the original image alongside the dithered version
-3. The dithering effect is applied automatically using the Floyd-Steinberg algorithm
+2. The application will display the original image alongside the processed version
+3. Select a dithering or modulation style from the dropdown
+4. For **Modulated Diffuse Y** or **Modulated Diffuse X**, use the dedicated sliders to control amplitude, frequency, phase, block size, noise, and line spacing for analog/CRT/glitch effects
+5. The effect is applied automatically and updates in real time
 
 ## Technologies Used
 
 - React 18
 - TypeScript
-- Material-UI
 - Rollup (bundler)
-- CSS Modules 
+- CSS Modules
