@@ -4,16 +4,18 @@ export const fastBoxBlur = (data: Uint8ClampedArray, width: number, height: numb
 
   // Horizontal pass
   for (let y = 0; y < height; y++) {
-    let sum = 0, count = 0;
+    let sum = [0, 0, 0], count = 0;
     for (let x = 0; x < width; x++) {
       const idx = (y * width + x) * 4;
       if (x === 0) {
         // Initialize sum for the first pixel in the row
-        sum = 0; count = 0;
+        sum = [0, 0, 0]; count = 0;
         for (let k = -radius; k <= radius; k++) {
           const nx = x + k;
           if (nx >= 0 && nx < width) {
-            sum += copy[(y * width + nx) * 4];
+            for (let c = 0; c < 3; c++) {
+              sum[c] += copy[(y * width + nx) * 4 + c];
+            }
             count++;
           }
         }
@@ -22,30 +24,39 @@ export const fastBoxBlur = (data: Uint8ClampedArray, width: number, height: numb
         const prev = x - radius - 1;
         const next = x + radius;
         if (prev >= 0) {
-          sum -= copy[(y * width + prev) * 4];
+          for (let c = 0; c < 3; c++) {
+            sum[c] -= copy[(y * width + prev) * 4 + c];
+          }
           count--;
         }
         if (next < width) {
-          sum += copy[(y * width + next) * 4];
+          for (let c = 0; c < 3; c++) {
+            sum[c] += copy[(y * width + next) * 4 + c];
+          }
           count++;
         }
       }
-      data[idx] = data[idx + 1] = data[idx + 2] = sum / count;
+      for (let c = 0; c < 3; c++) {
+        data[idx + c] = sum[c] / count;
+      }
+      // Alpha channel remains unchanged
     }
   }
 
   // Vertical pass
   copy.set(data);
   for (let x = 0; x < width; x++) {
-    let sum = 0, count = 0;
+    let sum = [0, 0, 0], count = 0;
     for (let y = 0; y < height; y++) {
       const idx = (y * width + x) * 4;
       if (y === 0) {
-        sum = 0; count = 0;
+        sum = [0, 0, 0]; count = 0;
         for (let k = -radius; k <= radius; k++) {
           const ny = y + k;
           if (ny >= 0 && ny < height) {
-            sum += copy[(ny * width + x) * 4];
+            for (let c = 0; c < 3; c++) {
+              sum[c] += copy[(ny * width + x) * 4 + c];
+            }
             count++;
           }
         }
@@ -53,15 +64,22 @@ export const fastBoxBlur = (data: Uint8ClampedArray, width: number, height: numb
         const prev = y - radius - 1;
         const next = y + radius;
         if (prev >= 0) {
-          sum -= copy[(prev * width + x) * 4];
+          for (let c = 0; c < 3; c++) {
+            sum[c] -= copy[(prev * width + x) * 4 + c];
+          }
           count--;
         }
         if (next < height) {
-          sum += copy[(next * width + x) * 4];
+          for (let c = 0; c < 3; c++) {
+            sum[c] += copy[(next * width + x) * 4 + c];
+          }
           count++;
         }
       }
-      data[idx] = data[idx + 1] = data[idx + 2] = sum / count;
+      for (let c = 0; c < 3; c++) {
+        data[idx + c] = sum[c] / count;
+      }
+      // Alpha channel remains unchanged
     }
   }
 }
