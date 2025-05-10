@@ -152,7 +152,8 @@ export const Controls: React.FC<ControlsProps> = ({
       {/* Show these sliders only for Modulated Diffuse Y or Modulated Diffuse X style */}
       {(settings.style === 'Modulated Diffuse Y' 
       || settings.style === 'Modulated Diffuse X'
-      || settings.style === 'Composite Video') && (
+      || settings.style === 'Composite Video'
+      || settings.style === 'Fractalify') && (
         <ModulatedDiffuseControls settings={settings} onSettingChange={onSettingChange} />
       )}
 

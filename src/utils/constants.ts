@@ -39,6 +39,7 @@ export const DITHER_OPTIONS = {
     'Lines Glitch',
     'Stuki Diffusion Lines',
     'Composite Video',
+    'Fractalify',
   ],
 } as const;
 
@@ -69,3 +70,5 @@ export const DEFAULT_SETTINGS = {
 };
 
 export const STORAGE_KEY = 'web-dither-image';
+export const FILE_NAME_PREFIX = 'ditr-image';
+

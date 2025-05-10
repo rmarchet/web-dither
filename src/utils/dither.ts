@@ -100,6 +100,9 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
     case 'Stuki Diffusion Lines':
       dither.applyStukiDiffusionLines(image, settings);
       break;
+    case 'Fractalify':
+      dither.applyFractalify(image, settings);
+      break;
   }
 }
 

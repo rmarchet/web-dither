@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { DitherSettings } from '../types';
 import { applyDither } from '../utils/dither';
+import { STORAGE_KEY } from '../utils/constants';
 import { Actions } from './Actions';
+import { saveImage } from '../utils/saveImage';
 import styles from '../styles/ImagePreview.module.css';
 
 interface ImagePreviewProps {
@@ -10,8 +12,6 @@ interface ImagePreviewProps {
   onImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onCanvasRef: (ref: HTMLCanvasElement | null) => void;
 }
-
-const STORAGE_KEY = 'web-dither-image';
 
 export const ImagePreview: React.FC<ImagePreviewProps> = ({
   image,
@@ -85,19 +85,7 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
 
   const handleExport = () => {
     if (!canvasRef.current || !image) return;
-    
-    try {
-      // Create a temporary link element
-      const link = document.createElement('a');
-      link.download = 'dithered-image.png';
-      
-      // Convert canvas to data URL and trigger download
-      const dataUrl = canvasRef.current.toDataURL('image/png');
-      link.href = dataUrl;
-      link.click();
-    } catch (error) {
-      console.error('Failed to export image:', error);
-    }
+    saveImage(canvasRef);
   };
 
   const handleClearImage = () => {

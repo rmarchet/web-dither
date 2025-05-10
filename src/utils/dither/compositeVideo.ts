@@ -97,6 +97,7 @@ export const applyCompositeVideo = (
   const fm_noise_stop = 1.0 + 0.5 * noise;
   const emulating_vhs = [2400000, 320000, 9]; // VHS_SP
   const fm_modulation_strength = 32 * amplitude; // Use in FM modulation step
+  const brightness_compensation = 30; // Use in FM modulation step
 
   // --- 1. Convert to YIQ ---
   const Y = new Float32Array(width * height);
@@ -279,7 +280,7 @@ export const applyCompositeVideo = (
         fdem = lpf3.lowpass(fdem);
         const modulated = Y[idx] + (fdem - 0.5) * fm_modulation_strength;
         Y[idx] = clamp(
-          fm_lightness * Y[idx] + (1 - fm_lightness) * modulated,
+          fm_lightness * Y[idx] + (1 - fm_lightness) * modulated + brightness_compensation,
           0, 255
         );
       }

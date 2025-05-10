@@ -27,5 +27,6 @@ export * from './linesGlitch';
 export * from './waveform';
 export * from './mosaic';
 export * from './bitTone';
+export * from './fractalify';
 export * from './stukiDiffusionLines';
 export * from './compositeVideo';
