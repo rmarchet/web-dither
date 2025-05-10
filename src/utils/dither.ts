@@ -103,10 +103,17 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
     case 'Fractalify':
       dither.applyFractalify(image, settings);
       break;
+    case 'LZ77':
+      dither.applyLZ77(image, settings);
+      break;
   }
 }
 
-export const applyDither = (ctx: CanvasRenderingContext2D, img: HTMLImageElement, settings: DitherSettings) => {
+export const applyDither = (
+  ctx: CanvasRenderingContext2D,
+  img: HTMLImageElement,
+  settings: DitherSettings,
+) => {
   const { width, height } = ctx.canvas;
 
   // Clear the canvas

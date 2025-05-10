@@ -30,3 +30,4 @@ export * from './bitTone';
 export * from './fractalify';
 export * from './stukiDiffusionLines';
 export * from './compositeVideo';
+export * from './lz77';

@@ -40,6 +40,7 @@ export const DITHER_OPTIONS = {
     'Stuki Diffusion Lines',
     'Composite Video',
     'Fractalify',
+    'LZ77',
   ],
 } as const;
 

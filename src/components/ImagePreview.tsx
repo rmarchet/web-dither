@@ -11,16 +11,25 @@ interface ImagePreviewProps {
   settings: DitherSettings;
   onImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onCanvasRef: (ref: HTMLCanvasElement | null) => void;
+  onBeforeImageChange: () => void;
+  onAfterImageChange: () => void;
 }
 
 export const ImagePreview: React.FC<ImagePreviewProps> = ({
   image,
   settings,
   onImageUpload,
-  onCanvasRef
+  onCanvasRef,
+  onBeforeImageChange,
+  onAfterImageChange,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Update loading state when settings change
+  useEffect(() => {
+    onBeforeImageChange();
+  }, [settings]);
 
   // Update canvas ref whenever it changes
   useEffect(() => {
@@ -46,37 +55,32 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
   }, []);
 
   useEffect(() => {
-    if (image && canvasRef.current) {
-      const img = new Image();
-      img.onload = () => {
-        if (canvasRef.current) {
-          const ctx = canvasRef.current.getContext('2d');
-          if (!ctx) return;
+    onBeforeImageChange();
+    setTimeout(() => {
+      if (image && canvasRef.current) {
+        const img = new Image();
+        img.onload = () => {
+          if (canvasRef.current) {
+            const ctx = canvasRef.current.getContext('2d');
+            if (!ctx) return;
 
-          // Calculate scaled dimensions based on pixelation scale
-          const pixelationScale = settings.pixelationScale;
-          const scaledWidth = Math.floor(img.width / pixelationScale);
-          const scaledHeight = Math.floor(img.height / pixelationScale);
-          
-          // Set canvas size
-          canvasRef.current.width = scaledWidth * pixelationScale;
-          canvasRef.current.height = scaledHeight * pixelationScale;
+            // Calculate scaled dimensions based on pixelation scale
+            const pixelationScale = settings.pixelationScale;
+            const scaledWidth = Math.floor(img.width / pixelationScale);
+            const scaledHeight = Math.floor(img.height / pixelationScale);
+            
+            // Set canvas size
+            canvasRef.current.width = scaledWidth * pixelationScale;
+            canvasRef.current.height = scaledHeight * pixelationScale;
 
-          // Apply dithering effect with one of the following styles:
-          // - Floyd-Steinberg: Classic error diffusion
-          // - Ordered: 8x8 ordered dithering
-          // - Atkinson: Error diffusion with reduced artifacts
-          // - Bayer: 4x4 Bayer matrix dithering
-          // - Random: Random noise-based dithering
-          // - Stucki: Enhanced error diffusion
-          // - Burkes: Simplified error diffusion
-          // - Sierra: Balanced error diffusion
-          // - Halftone: Classic newspaper-style halftone
-          applyDither(ctx, img, settings);
-        }
-      };
-      img.src = image;
-    }
+            // Apply dithering effect with one of the available styles
+            applyDither(ctx, img, settings);
+            onAfterImageChange();
+          }
+        };
+        img.src = image;
+      }
+    }, 50);
   }, [image, settings]);
 
   const handleChangeClick = () => {

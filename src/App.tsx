@@ -9,6 +9,8 @@ import styles from './styles/App.module.css';
 const App: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);
   const [settings, setSettings] = useState<DitherSettings>(DEFAULT_SETTINGS);
+  const [loading, setLoading] = useState(false);
+  
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Load image from localStorage on mount
@@ -48,14 +50,25 @@ const App: React.FC = () => {
     canvasRef.current = ref;
   };
 
+  const handleBeforeImageChange = () => {
+    setLoading(true);
+  };
+
+  const handleAfterImageChange = () => {
+    setLoading(false);
+  };
+
   return (
     <div className={styles.container}>
       <main className={styles.mainContent}>
+        {loading && <div className={styles.loading}><span>Loading...</span></div>}
         <ImagePreview
           image={image}
           settings={settings}
           onImageUpload={handleImageUpload}
           onCanvasRef={handleCanvasRef}
+          onBeforeImageChange={handleBeforeImageChange}
+          onAfterImageChange={handleAfterImageChange}
         />
         <Controls
           settings={settings}
