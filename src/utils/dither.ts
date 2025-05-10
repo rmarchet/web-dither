@@ -106,6 +106,9 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
     case 'LZ77':
       dither.applyLZ77(image, settings);
       break;
+    case 'Joy Plot':
+      dither.applyJoyPlot(image, settings);
+      break;
   }
 }
 

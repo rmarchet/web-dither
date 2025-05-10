@@ -41,6 +41,7 @@ export const DITHER_OPTIONS = {
     'Composite Video',
     'Fractalify',
     'LZ77',
+    'Joy Plot',
   ],
 } as const;
 

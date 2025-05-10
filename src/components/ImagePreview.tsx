@@ -75,11 +75,11 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
 
             // Apply dithering effect with one of the available styles
             applyDither(ctx, img, settings);
-            onAfterImageChange();
           }
         };
         img.src = image;
       }
+      onAfterImageChange();
     }, 50);
   }, [image, settings]);
 

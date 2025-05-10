@@ -19,6 +19,7 @@ const App: React.FC = () => {
     if (savedImage) {
       setImage(savedImage);
     }
+    setLoading(false);
   }, []);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +45,7 @@ const App: React.FC = () => {
 
   const handleReset = () => {
     setSettings(DEFAULT_SETTINGS);
+    setLoading(false);
   };
 
   const handleCanvasRef = (ref: HTMLCanvasElement | null) => {
