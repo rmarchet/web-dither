@@ -61,7 +61,7 @@ export const applyJoyPlot = (
 ) => {
   const { width, height, data } = image;
   // Parameters (now computed from settings, with sensible defaults)
-  const numLines = Math.max(10, Math.floor((settings.frequency ?? 1) * 200)); // more frequency = more lines
+  const numLines = Math.max(10, Math.floor((settings.frequency ?? 1) * 300)); // more frequency = more lines
   const lineSpacing = Math.floor(height / numLines);
   const scale = (settings.amplitude ?? 1) * 100; // amplitude controls elevation scale
   const roughness = Math.max(0, (settings.phase ?? 1) * 2); // phase controls smoothing radius
@@ -120,6 +120,14 @@ export const applyJoyPlot = (
     let prevX = 0, prevY = Math.max(0, Math.min(height - 1, Math.round(y + smooth[0])));
     for (let x = 1; x < width; x++) {
       const plotY = Math.max(0, Math.min(height - 1, Math.round(y + smooth[x])));
+      // Fill under the line with black (leave the line itself white)
+      for (let fillY = plotY + 1; fillY < height; fillY++) {
+        const idx = (fillY * width + x) * 4;
+        out[idx] = 0;
+        out[idx + 1] = 0;
+        out[idx + 2] = 0;
+        out[idx + 3] = 255;
+      }
       drawLine(out, width, height, prevX, prevY, x, plotY, lineWidth);
       prevX = x;
       prevY = plotY;
