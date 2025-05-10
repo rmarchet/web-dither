@@ -108,7 +108,7 @@ export const applyJoyPlot = (
     // 2. Normalize and invert (so higher brightness = higher elevation)
     const localMin = Math.min(...line);
     const localMax = Math.max(...line);
-    const norm = line.map(v => 1 - (v - localMin) / (localMax - localMin + 1e-6));
+    const norm = line.map(v => (v - localMin) / (localMax - localMin + 1e-6));
 
     // 3. Scale elevation (no noise)
     const elevation = norm.map(v => v * scale);
