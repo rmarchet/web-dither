@@ -42,6 +42,7 @@ export const DITHER_OPTIONS = {
     'Fractalify',
     'LZ77',
     'Joy Plot',
+    'Rutt-Etra',
   ],
 } as const;
 

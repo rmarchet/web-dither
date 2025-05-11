@@ -109,6 +109,9 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
     case 'Joy Plot':
       dither.applyJoyPlot(image, settings);
       break;
+    case 'Rutt-Etra':
+      dither.applyRuttEtra(image, settings);
+      break;
   }
 }
 

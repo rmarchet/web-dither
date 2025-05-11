@@ -32,3 +32,4 @@ export * from './stukiDiffusionLines';
 export * from './compositeVideo';
 export * from './lz77';
 export * from './joyPlot';
+export * from './ruttEtra';
