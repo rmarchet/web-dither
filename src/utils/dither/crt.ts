@@ -1,4 +1,5 @@
 import { ImageSettings, DitherSettings } from "../../types";
+import { applyBarrelDistortion, applyVignette } from "../effects/effects";
 
 export const applyCrt = (image: ImageSettings, settings: DitherSettings) => {
   const { width, height, data } = image;
@@ -31,15 +32,7 @@ export const applyCrt = (image: ImageSettings, settings: DitherSettings) => {
 
     for (let x = 0; x < width; x++) {
       // Barrel distortion (as in shader)
-      const nx = (x - cx) / cx;
-      const ny = (y - cy) / cy;
-      let r = Math.sqrt(nx * nx + ny * ny);
-      let theta = Math.atan2(ny, nx);
-      // Apply cubic warping
-      let rn = r + barrelStrength * Math.pow(r, 3);
-      // Map back to image coordinates
-      const sx = cx + rn * cx * Math.cos(theta) + glitch;
-      const sy = cy + rn * cy * Math.sin(theta);
+      const [sx, sy] = applyBarrelDistortion(x, y, width, height, barrelStrength, glitch);
       // Clamp to image bounds
       const srcX = Math.max(0, Math.min(width - 1, Math.round(sx)));
       const srcY = Math.max(0, Math.min(height - 1, Math.round(sy)));
@@ -62,10 +55,7 @@ export const applyCrt = (image: ImageSettings, settings: DitherSettings) => {
       bCol *= scanline;
 
       // Vignette/edge fade (as in shader)
-      const dx = (x - cx) / cx;
-      const dy = (y - cy) / cy;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const vignette = 1.0 - vignetteStrength * Math.pow(dist, 2.5);
+      const vignette = applyVignette(x, y, width, height, vignetteStrength);
       rCol *= vignette;
       gCol *= vignette;
       bCol *= vignette;

@@ -1,38 +1,6 @@
 import { ImageSettings, DitherSettings } from "../../types";
+import { drawLine } from "../effects/effects";
 const FREQUENCY_MULTIPLIER = 400;
-
-// Draw a colored line of given width using Bresenham's algorithm
-function drawLine(
-  data: Uint8ClampedArray,
-  width: number,
-  height: number,
-  x0: number,
-  y0: number,
-  x1: number,
-  y1: number,
-  color: [number, number, number],
-  lineWidth: number = 1
-) {
-  let dx = Math.abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
-  let dy = -Math.abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
-  let err = dx + dy, e2;
-  while (true) {
-    for (let w = -Math.floor(lineWidth / 2); w <= Math.floor(lineWidth / 2); w++) {
-      const px = x0, py = y0 + w;
-      if (px >= 0 && px < width && py >= 0 && py < height) {
-        const idx = (py * width + px) * 4;
-        data[idx] = color[0];
-        data[idx + 1] = color[1];
-        data[idx + 2] = color[2];
-        data[idx + 3] = 255;
-      }
-    }
-    if (x0 === x1 && y0 === y1) break;
-    e2 = 2 * err;
-    if (e2 >= dy) { err += dy; x0 += sx; }
-    if (e2 <= dx) { err += dx; y0 += sy; }
-  }
-}
 
 export const applyRuttEtra = (image: ImageSettings, settings: DitherSettings) => {
   const { width, height, data } = image;
