@@ -43,6 +43,7 @@ export const DITHER_OPTIONS = {
     'LZ77',
     'Joy Plot',
     'Rutt-Etra',
+    'CRT',
   ],
 } as const;
 

@@ -112,6 +112,9 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
     case 'Rutt-Etra':
       dither.applyRuttEtra(image, settings);
       break;
+    case 'CRT':
+      dither.applyCrt(image, settings);
+      break;
   }
 }
 
