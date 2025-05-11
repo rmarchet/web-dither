@@ -1,5 +1,7 @@
 import { ImageSettings, DitherSettings } from "../../types";
 
+const FREQUENCY_MULTIPLIER = 400;
+
 // Simple 1D box blur for smoothing
 function smoothLine(line: number[], roughness: number): number[] {
   const radius = Math.max(1, Math.round(roughness));
@@ -61,7 +63,7 @@ export const applyJoyPlot = (
 ) => {
   const { width, height, data } = image;
   // Parameters (now computed from settings, with sensible defaults)
-  const numLines = Math.max(10, Math.floor((settings.frequency ?? 1) * 300)); // more frequency = more lines
+  const numLines = Math.max(10, Math.floor((settings.frequency ?? 1) * FREQUENCY_MULTIPLIER)); // more frequency = more lines
   const lineSpacing = Math.floor(height / numLines);
   const scale = (settings.amplitude ?? 1) * 100; // amplitude controls elevation scale
   const roughness = Math.max(0, (settings.phase ?? 1) * 2); // phase controls smoothing radius
@@ -89,7 +91,9 @@ export const applyJoyPlot = (
 
   // For each line
   for (let i = 0; i < numLines; i++) {
-    const y = i * lineSpacing;
+    // Add vertical offset based on settings.phase
+    const phaseOffset = Math.round((settings.phase ?? 0) * lineSpacing);
+    const y = i * lineSpacing + phaseOffset;
     if (y >= height) break;
 
     // 1. Extract brightness for this row
@@ -110,8 +114,13 @@ export const applyJoyPlot = (
     const localMax = Math.max(...line);
     const norm = line.map(v => (v - localMin) / (localMax - localMin + 1e-6));
 
-    // 3. Scale elevation (no noise)
-    const elevation = norm.map(v => v * scale);
+    // 3. Scale elevation and add noise
+    const noiseAmount = settings.noise ?? 0;
+    const elevation = norm.map((v, x) => {
+      // Add small random noise to the altitude
+      const noise = (Math.random() * 2 - 1) * noiseAmount;
+      return v * scale + noise;
+    });
 
     // 4. Smooth the elevation
     const smooth = smoothLine(elevation, roughness);
