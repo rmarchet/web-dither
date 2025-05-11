@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import cn from 'classnames';
 import { DitherSettings } from '../types';
 import { applyDither } from '../utils/dither';
 import { STORAGE_KEY } from '../utils/constants';
@@ -24,7 +25,9 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
   onAfterImageChange,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const originalCanvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showOriginal, setShowOriginal] = useState(false);
 
   // Update loading state when settings change
   useEffect(() => {
@@ -83,6 +86,23 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
     }, 50);
   }, [image, settings]);
 
+  // Draw original image to originalCanvasRef
+  useEffect(() => {
+    if (image && originalCanvasRef.current) {
+      const img = new Image();
+      img.onload = () => {
+        if (originalCanvasRef.current) {
+          const ctx = originalCanvasRef.current.getContext('2d');
+          if (!ctx) return;
+          originalCanvasRef.current.width = img.width;
+          originalCanvasRef.current.height = img.height;
+          ctx.drawImage(img, 0, 0, img.width, img.height);
+        }
+      };
+      img.src = image;
+    }
+  }, [image]);
+
   const handleChangeClick = () => {
     fileInputRef.current?.click();
   };
@@ -97,10 +117,32 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
     onImageUpload({ target: { value: null } } as React.ChangeEvent<HTMLInputElement>);
   };
 
+  const handleShowOriginal = () => setShowOriginal(true);
+  const handleHideOriginal = () => setShowOriginal(false);
+
+  const handleDrop = (event: React.DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+      onImageUpload({
+        target: {
+          files: event.dataTransfer.files,
+        },
+      } as React.ChangeEvent<HTMLInputElement>);
+    }
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <div className={styles.imageArea}>
       {!image && (
-        <label className={styles.uploadArea}>
+        <label
+          className={styles.uploadArea}
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+        >
           <input
             ref={fileInputRef}
             type="file"
@@ -113,7 +155,20 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
       )}
       {image && (
         <div className={styles.imageContainer}>
-          <canvas ref={canvasRef} className={styles.canvas} />
+          <canvas
+            ref={canvasRef}
+            className={styles.canvas}
+            onMouseDown={handleShowOriginal}
+            onMouseUp={handleHideOriginal}
+            onMouseLeave={handleHideOriginal}
+            onTouchStart={handleShowOriginal}
+            onTouchEnd={handleHideOriginal}
+          />
+          <canvas
+            ref={originalCanvasRef}
+            className={cn(styles.canvas, styles.originalCanvas, showOriginal ? styles.show : styles.hide)}
+            tabIndex={-1}
+          />
           <Actions
             onChangeImage={handleChangeClick}
             onExport={handleExport}
