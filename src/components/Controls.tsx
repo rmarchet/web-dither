@@ -157,6 +157,7 @@ export const Controls: React.FC<ControlsProps> = ({
       || settings.style === 'Joy Plot'
       || settings.style === 'Rutt-Etra'
       || settings.style === 'CRT'
+      || settings.style === 'LZ77'
     ) && (
         <ModulatedDiffuseControls settings={settings} onSettingChange={onSettingChange} />
       )}

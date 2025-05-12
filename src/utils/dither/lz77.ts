@@ -1,6 +1,9 @@
 import { ImageSettings, DitherSettings } from "../../types";
 import { clamp, rgb2hsb, hsb2rgb } from "../effects/effects";
 
+const FREQUENCY_MULTIPLIER = 400;
+const COMPRESSION_MULTIPLIER = 200;
+
 // LZ77 Tuple
 export class Tuple {
   offset: number;
@@ -92,18 +95,29 @@ export const applyLZ77 = (
   settings: DitherSettings
 ) => {
   const { width, height, data } = image;
+  const { noise = 0 } = settings;
+
   // Randomize color space
   const useHSB = Math.random() < 0.4;
-  // Randomize compressor attributes and glitch params
+  // Randomize compressor attributes
   const compressor_attributes = [
-    [Math.floor(Math.random() * 2900 + 100), Math.floor(Math.random() * 0.4 * (Math.random() * 2900 + 100) + 0.1 * (Math.random() * 2900 + 100))],
-    [Math.floor(Math.random() * 2900 + 100), Math.floor(Math.random() * 0.4 * (Math.random() * 2900 + 100) + 0.1 * (Math.random() * 2900 + 100))],
-    [Math.floor(Math.random() * 2900 + 100), Math.floor(Math.random() * 0.4 * (Math.random() * 2900 + 100) + 0.1 * (Math.random() * 2900 + 100))],
+    [Math.floor(Math.random() * COMPRESSION_MULTIPLIER + 20), Math.floor(Math.random() * 20 + 5)],
+    [Math.floor(Math.random() * COMPRESSION_MULTIPLIER + 20), Math.floor(Math.random() * 20 + 5)],
+    [Math.floor(Math.random() * COMPRESSION_MULTIPLIER + 20), Math.floor(Math.random() * 20 + 5)],
   ];
+  // Use noise to control number and strength of glitches
+  const amplitude = settings.amplitude ?? 1;
+  const frequency = (settings.frequency ?? 1) * FREQUENCY_MULTIPLIER;
+  const phase = settings.phase ?? 0;
+
+  const baseGlitches = Math.floor((noise + 1) * 40 * frequency);
+  const glitchFactor = (0.1 + (noise + 1) * 0.09) * amplitude;
+  const phaseOffset = Math.floor(phase * 1000); // or use as a seed
+
   const number_of_glitches = [
-    [Math.floor(Math.random() * 980 + 20), Math.random() * 1.9 + 0.1],
-    [Math.floor(Math.random() * 980 + 20), Math.random() * 1.9 + 0.1],
-    [Math.floor(Math.random() * 980 + 20), Math.random() * 1.9 + 0.1],
+    [baseGlitches, glitchFactor, phaseOffset],
+    [baseGlitches, glitchFactor, phaseOffset],
+    [baseGlitches, glitchFactor, phaseOffset],
   ];
   // Extract channels
   const len = width * height;
