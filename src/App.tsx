@@ -2,7 +2,8 @@ import React, { useState, useRef } from 'react';
 import { ImagePreview } from './components/ImagePreview';
 import { Controls } from './components/Controls';
 import { Footer } from './components/Footer';
-import { DEFAULT_SETTINGS, STORAGE_KEY } from './utils/constants';
+import { STORAGE_KEY } from './utils/constants';
+import { DEFAULT_SETTINGS } from './utils/controlOptions';
 import { DitherSettings, DitherStyle } from './types';
 import styles from './styles/App.module.css';
 

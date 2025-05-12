@@ -3,118 +3,14 @@ import { scaleDitheredImage } from './scaleDitheredImage';
 import { preprocessImage } from './preprocessImage';
 import * as dither from './dither/index';
 
-function runDither(image: ImageSettings, settings: DitherSettings) {
+const dithers = Object.values(dither);
+
+const runDither = (image: ImageSettings, settings: DitherSettings) => {
   const { data, width, height } = image;
   const { style, noise } = settings;
-  switch (style) {
-    case 'Floyd-Steinberg':
-      dither.floydSteinberg.apply(image, settings);
-      break;
-    case 'Jarvis-Judice-Ninke':
-      dither.jarvisJudiceNinke.apply(image, settings);
-      break;
-    case 'Sierra-Lite':
-      dither.sierraLite.apply(image, settings);
-      break;
-    case 'Two-Row-Sierra':
-      dither.twoRowSierra.apply(image, settings);
-      break;
-    case 'Stevenson-Arce':
-      dither.stevensonArce.apply(image, settings);
-      break;
-    case 'Ostromukhov':
-      dither.ostromukhov.apply(image, settings);
-      break;
-    case 'Gaussian':
-      dither.gaussian.apply(image, settings);
-      break;
-    case 'Atkinson':
-      dither.atkinson.apply(image, settings);
-      break;
-    case 'Atkinson-VHS':
-      dither.atkinsonVHS.apply(image, settings);
-      break;
-    case 'Bayer':
-      dither.bayer.apply(image, settings);
-      break;
-    case 'Bayer-Ordered':
-      dither.bayerOrdered.apply(image, settings);
-      break;
-    case 'Bayer-Void':
-      dither.bayerVoid.apply(image, settings);
-      break;
-    case 'Ordered':
-      dither.ordered.apply(image, settings);
-      break;
-    case 'Random':
-      dither.random.apply(image, settings);
-      break;
-    case 'Random-Ordered':
-      dither.randomOrdered.apply(image, settings);
-      break;
-    case 'Burkes':
-      dither.burkes.apply(image, settings);
-      break;
-    case 'Sierra':
-      dither.sierra.apply(image, settings);
-      break;
-    case 'Halftone':
-      dither.halftone.apply(image, settings);
-      break;
-    case 'Stucki':
-      dither.stucki.apply(image, settings);
-      break;
-    case 'Smooth Diffuse':
-      dither.smoothDiffuse.apply(image, settings);
-      break;
-    case 'Modulated Diffuse Y':
-      dither.modulatedDiffuseY.apply(image, settings);
-      break;
-    case 'Modulated Diffuse X':
-      dither.modulatedDiffuseX.apply(image, settings);
-      break;
-    case 'Composite Video':
-      dither.compositeVideo.apply(image, settings);
-      break;
-    case 'Glitch':
-      dither.glitch.apply(image, settings);
-      break;
-    case 'Lines Glitch':
-      dither.linesGlitch.apply(image, settings);
-      break;
-    case 'Waveform':
-      dither.waveform.apply(image, settings);
-      break;
-    case 'Bayer Matrix 2x2':
-      dither.bayerMatrix2x2.apply(image, settings);
-      break;
-    case 'Bayer Matrix 4x4':
-      dither.bayerMatrix4x4.apply(image, settings);
-      break;
-    case 'Mosaic':
-      dither.mosaic.apply(image, settings);
-      break;
-    case 'Bit Tone':
-      dither.bitTone.apply(image, settings);
-      break;
-    case 'Stuki Diffusion Lines':
-      dither.stukiDiffusionLines.apply(image, settings);
-      break;
-    case 'Fractalify':
-      dither.fractalify.apply(image, settings);
-      break;
-    case 'LZ77':
-      dither.lz77.apply(image, settings);
-      break;
-    case 'Joy Plot':
-      dither.joyPlot.apply(image, settings);
-      break;
-    case 'Rutt-Etra':
-      dither.ruttEtra.apply(image, settings);
-      break;
-    case 'CRT':
-      dither.crt.apply(image, settings);
-      break;
+  const dither = dithers.find(d => d.name === style);
+  if (dither) {
+    dither.apply(image, settings);
   }
 }
 

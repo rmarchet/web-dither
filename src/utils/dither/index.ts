@@ -7,7 +7,7 @@ export * from './errorDiffusion/stevensonArce';
 export * from './errorDiffusion/ostromukhov';
 export * from './errorDiffusion/gaussian';
 export * from './errorDiffusion/atkinson';
-export * from './errorDiffusion/bayer';
+export * from './errorDiffusion/bayer/index';
 export * from './errorDiffusion/ordered';
 export * from './errorDiffusion/random';
 export * from './errorDiffusion/burkes';

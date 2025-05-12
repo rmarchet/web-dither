@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { DITHER_STYLES, DITHER_OPTIONS, SCALED_STYLES } from '../utils/constants';
+import { DITHER_STYLES, SCALED_STYLES, DITHER_OPTIONS } from '../utils/controlOptions';
 import { ModulatedDiffuseControls } from './Controls/ModulatedDiffuseControls';
 import { DitherSettings, DitherStyle } from '../types';
 import styles from '../styles/Controls.module.css';
