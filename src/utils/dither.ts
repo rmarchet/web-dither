@@ -32,7 +32,7 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
       dither.atkinson.apply(image, settings);
       break;
     case 'Atkinson-VHS':
-      dither.applyAtkinsonVHS(image, settings);
+      dither.atkinsonVHS.apply(image, settings);
       break;
     case 'Bayer':
       dither.bayer.apply(image, settings);
@@ -41,7 +41,7 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
       dither.bayerOrdered.apply(image, settings);
       break;
     case 'Bayer-Void':
-      dither.applyBayerVoid(image, settings);
+      dither.bayerVoid.apply(image, settings);
       break;
     case 'Ordered':
       dither.ordered.apply(image, settings);
@@ -50,7 +50,7 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
       dither.random.apply(image, settings);
       break;
     case 'Random-Ordered':
-      dither.applyRandomOrdered(image, settings);
+      dither.randomOrdered.apply(image, settings);
       break;
     case 'Burkes':
       dither.burkes.apply(image, settings);
@@ -65,55 +65,55 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
       dither.stucki.apply(image, settings);
       break;
     case 'Smooth Diffuse':
-      dither.applySmoothDiffuse(image, settings);
+      dither.smoothDiffuse.apply(image, settings);
       break;
     case 'Modulated Diffuse Y':
-      dither.applyModulatedDiffuseY(image, settings);
+      dither.modulatedDiffuseY.apply(image, settings);
       break;
     case 'Modulated Diffuse X':
-      dither.applyModulatedDiffuseX(image, settings);
+      dither.modulatedDiffuseX.apply(image, settings);
       break;
     case 'Composite Video':
-      dither.applyCompositeVideo(image, settings);
+      dither.compositeVideo.apply(image, settings);
       break;
     case 'Glitch':
-      dither.applyGlitch(image, settings);
+      dither.glitch.apply(image, settings);
       break;
     case 'Lines Glitch':
-      dither.applyLinesGlitch(image, settings);
+      dither.linesGlitch.apply(image, settings);
       break;
     case 'Waveform':
-      dither.applyWaveform(image, settings);
+      dither.waveform.apply(image, settings);
       break;
     case 'Bayer Matrix 2x2':
       dither.bayerMatrix2x2.apply(image, settings);
       break;
     case 'Bayer Matrix 4x4':
-      dither.applyBayerMatrix4x4(image, settings);
+      dither.bayerMatrix4x4.apply(image, settings);
       break;
     case 'Mosaic':
-      dither.applyMosaic(image, settings);
+      dither.mosaic.apply(image, settings);
       break;
     case 'Bit Tone':
-      dither.applyBitTone(image, settings);
+      dither.bitTone.apply(image, settings);
       break;
     case 'Stuki Diffusion Lines':
-      dither.applyStukiDiffusionLines(image, settings);
+      dither.stukiDiffusionLines.apply(image, settings);
       break;
     case 'Fractalify':
-      dither.applyFractalify(image, settings);
+      dither.fractalify.apply(image, settings);
       break;
     case 'LZ77':
-      dither.applyLZ77(image, settings);
+      dither.lz77.apply(image, settings);
       break;
     case 'Joy Plot':
-      dither.applyJoyPlot(image, settings);
+      dither.joyPlot.apply(image, settings);
       break;
     case 'Rutt-Etra':
-      dither.applyRuttEtra(image, settings);
+      dither.ruttEtra.apply(image, settings);
       break;
     case 'CRT':
-      dither.applyCrt(image, settings);
+      dither.crt.apply(image, settings);
       break;
   }
 }

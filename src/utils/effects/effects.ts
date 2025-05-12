@@ -150,3 +150,22 @@ export const smoothLine = (line: number[], roughness: number): number[] => {
   }
   return smoothed;
 }
+
+// Helper: map value from one range to another
+export const map = (val: number, a: number, b: number, c: number, d: number) => {
+  return c + ((val - a) * (d - c)) / (b - a);
+}
+
+// Helper: get channel value (0=R, 1=G, 2=B, 3=H, 4=S, 5=V)
+export const getChan = (no: number, r: number, g: number, b: number, h: number, s: number, v: number, negative: boolean) => {
+  let t = 0;
+  switch (no) {
+    case 0: t = r; break;
+    case 1: t = g; break;
+    case 2: t = b; break;
+    case 3: t = h; break;
+    case 4: t = s; break;
+    default: t = v; break;
+  }
+  return negative ? map(t, 0, 255, 1, 0) : map(t, 0, 255, 0, 1);
+}
