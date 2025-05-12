@@ -1,51 +1,8 @@
 import { ImageSettings, DitherSettings } from "../../types";
-
-// Helper: clamp
-function clamp(val: number, min: number, max: number) {
-  return Math.max(min, Math.min(max, val));
-}
-
-// Helper: RGB to HSB
-function rgb2hsb(r: number, g: number, b: number): [number, number, number] {
-  r /= 255; g /= 255; b /= 255;
-  const max = Math.max(r, g, b), min = Math.min(r, g, b);
-  let h = 0, s = 0, v = max;
-  const d = max - min;
-  s = max === 0 ? 0 : d / max;
-  if (max === min) h = 0;
-  else {
-    switch (max) {
-      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-      case g: h = (b - r) / d + 2; break;
-      case b: h = (r - g) / d + 4; break;
-    }
-    h /= 6;
-  }
-  return [h * 255, s * 255, v * 255];
-}
-
-// Helper: HSB to RGB
-function hsb2rgb(h: number, s: number, v: number): [number, number, number] {
-  h /= 255; s /= 255; v /= 255;
-  let r = 0, g = 0, b = 0;
-  const i = Math.floor(h * 6);
-  const f = h * 6 - i;
-  const p = v * (1 - s);
-  const q = v * (1 - f * s);
-  const t = v * (1 - (1 - f) * s);
-  switch (i % 6) {
-    case 0: r = v, g = t, b = p; break;
-    case 1: r = q, g = v, b = p; break;
-    case 2: r = p, g = v, b = t; break;
-    case 3: r = p, g = q, b = v; break;
-    case 4: r = t, g = p, b = v; break;
-    case 5: r = v, g = p, b = q; break;
-  }
-  return [clamp(Math.round(r * 255), 0, 255), clamp(Math.round(g * 255), 0, 255), clamp(Math.round(b * 255), 0, 255)];
-}
+import { clamp, rgb2hsb, hsb2rgb } from "../effects/effects";
 
 // LZ77 Tuple
-class Tuple {
+export class Tuple {
   offset: number;
   len: number;
   chr: number;
@@ -57,7 +14,7 @@ class Tuple {
 }
 
 // LZ77 Compressor/Decompressor/Glitcher
-class LZ77 {
+export class LZ77 {
   windowWidth: number;
   lookAheadWidth: number;
   clist: Tuple[] = [];

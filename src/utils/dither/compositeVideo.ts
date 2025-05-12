@@ -1,61 +1,6 @@
 import { DitherSettings, ImageSettings } from '../../types';
-
-// --- YIQ conversion ---
-function rgb2yiq(r: number, g: number, b: number): [number, number, number] {
-  // Scale input to 0-1 range
-  r = r / 255;
-  g = g / 255;
-  b = b / 255;
-  
-  const y = 0.299 * r + 0.587 * g + 0.114 * b;
-  const i = 0.596 * r - 0.274 * g - 0.322 * b;
-  const q = 0.211 * r - 0.523 * g + 0.312 * b;
-  
-  // Scale output to match Processing's range
-  return [y * 256, i * 256, q * 256];
-}
-
-function yiq2rgb(y: number, i: number, q: number): [number, number, number] {
-  // Scale input from Processing's range to 0-1
-  y = y / 256;
-  i = i / 256;
-  q = q / 256;
-  
-  let r = y + 0.956 * i + 0.621 * q;
-  let g = y - 0.272 * i - 0.647 * q;
-  let b = y - 1.106 * i + 1.703 * q;
-  
-  // Scale back to 0-255 and clamp
-  r = Math.max(0, Math.min(255, r * 255));
-  g = Math.max(0, Math.min(255, g * 255));
-  b = Math.max(0, Math.min(255, b * 255));
-  
-  return [r, g, b];
-}
-
-// --- LowpassFilter class ---
-class LowpassFilter {
-  private prev = 0;
-  private alpha = 0;
-  setFilter(rate: number, hz: number) {
-    const timeInterval = 1.0 / rate;
-    const tau = 1.0 / (hz * 2 * Math.PI);
-    this.alpha = timeInterval / (tau + timeInterval);
-  }
-  resetFilter(val = 0) { this.prev = val; }
-  lowpass(sample: number) {
-    this.prev = this.prev + this.alpha * (sample - this.prev);
-    return this.prev;
-  }
-  highpass(sample: number) {
-    return sample - this.lowpass(sample);
-  }
-}
-
-// --- Helper functions ---
-function clamp(val: number, min: number, max: number) {
-  return Math.max(min, Math.min(max, val));
-}
+import { clamp, rgb2yiq, yiq2rgb } from '../effects/effects';
+import { LowpassFilter } from '../effects/LowPassFilter';
 
 // --- Main composite video simulation ---
 export const applyCompositeVideo = (

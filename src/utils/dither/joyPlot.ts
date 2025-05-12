@@ -1,27 +1,10 @@
 import { ImageSettings, DitherSettings } from "../../types";
+import { valueNoise, smoothLine } from "../effects/effects";
 
 const FREQUENCY_MULTIPLIER = 400;
 
-// Simple 1D box blur for smoothing
-function smoothLine(line: number[], roughness: number): number[] {
-  const radius = Math.max(1, Math.round(roughness));
-  const smoothed = new Array(line.length).fill(0);
-  for (let i = 0; i < line.length; i++) {
-    let sum = 0, count = 0;
-    for (let k = -radius; k <= radius; k++) {
-      const idx = i + k;
-      if (idx >= 0 && idx < line.length) {
-        sum += line[idx];
-        count++;
-      }
-    }
-    smoothed[i] = sum / count;
-  }
-  return smoothed;
-}
-
 // Draw a white line of given width using Bresenham's algorithm
-function drawLine(
+export const drawLine = (
   data: Uint8ClampedArray,
   width: number,
   height: number,
@@ -30,7 +13,7 @@ function drawLine(
   x1: number,
   y1: number,
   lineWidth: number = 1
-) {
+) => {
   let dx = Math.abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
   let dy = -Math.abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
   let err = dx + dy, e2;
@@ -50,11 +33,6 @@ function drawLine(
     if (e2 >= dy) { err += dy; x0 += sx; }
     if (e2 <= dx) { err += dx; y0 += sy; }
   }
-}
-
-function valueNoise(x: number, seed: number = 0) {
-  const n = Math.sin(x * 12.9898 + seed * 78.233) * 43758.5453;
-  return n - Math.floor(n);
 }
 
 export const applyJoyPlot = (
