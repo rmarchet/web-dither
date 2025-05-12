@@ -20,22 +20,123 @@ export const DITHER_STYLES = Object.values(DITHER_OPTIONS).flat() as const;
 // Add a list of styles that support dithering scale
 export const SCALED_STYLES = DITHER_STYLES as const;
 
-export const DEFAULT_SETTINGS = {
-  style: DITHER_STYLES[0],
-  pixelationScale: 1,
-  ditheringScale: 1,
-  detailEnhancement: 50,
-  brightness: 0,
-  midtones: 1,
-  noise: 0,
-  glow: 0,
-  luminanceThreshold: -1,
-  verticalScanlineFrequency: -1,
-  invert: false,
-  blur: 0,
-  amplitude: 0.5,
-  frequency: 0.02,
-  phase: 0,
-  blockSize: 1,
-  grayscale: true,
-};
+
+export const SETTINGS = {
+  style: {
+    type: 'select',
+    options: DITHER_STYLES,
+    defaultValue: DITHER_STYLES[0],
+  },
+  pixelationScale: {
+    type: 'range',
+    defaultValue: 1,
+    min: 1,
+    max: 10,
+    step: 1,
+  },
+  ditheringScale: {
+    type: 'range',
+    defaultValue: 1,
+    min: 1,
+    max: 10,
+    step: 1,
+  },
+  detailEnhancement: {
+    type: 'range',
+    defaultValue: 50,
+    min: 0,
+    max: 100,
+    step: 1,
+  },
+  brightness: {
+    type: 'range',
+    defaultValue: 0,
+    min: -100,
+    max: 100,
+    step: 1,
+  },
+  midtones: {
+    type: 'range',
+    defaultValue: 1,
+    min: 0,
+    max: 100,
+    step: 1,
+  },
+  noise: {
+    type: 'range',
+    defaultValue: 0,
+    min: 0,
+    max: 100,
+    step: 1,
+  },
+  glow: {
+    type: 'range',
+    defaultValue: 0,
+    min: 0,
+    max: 100,
+    step: 1,
+  },
+  luminanceThreshold: {
+    type: 'range',
+    defaultValue: -1,
+    min: -1,
+    max: 1,
+    step: 0.01,
+  },
+  verticalScanlineFrequency: {
+    type: 'range',
+    defaultValue: -1,
+    min: -1,
+    max: 1,
+    step: 0.01,
+  },
+  invert: {
+    type: 'boolean',
+    defaultValue: false,
+  },
+  blur: {
+    type: 'range',
+    defaultValue: 0,
+    min: 0,
+    max: 100,
+    step: 1,
+  },
+  amplitude: {
+    type: 'range',
+    defaultValue: 0.5,
+    min: 0,
+    max: 3,
+    step: 0.01,
+  },
+  frequency: {
+    type: 'range',
+    defaultValue: 0.005,
+    min: 0,
+    max: 0.3,
+    step: 0.005,
+  },
+  phase: {
+    type: 'range',
+    defaultValue: 0,
+    min: 0,
+    max: 6,
+    step: 0.01,
+  },
+  blockSize: {
+    type: 'range',
+    defaultValue: 1,
+    min: 1,
+    max: 10,
+    step: 1,
+  },
+  grayscale: {
+    type: 'boolean',
+    defaultValue: true,
+  },
+}
+
+export const DEFAULT_SETTINGS = Object.fromEntries(
+  Object.entries(SETTINGS).map(
+    ([key, value]) => [key, value.defaultValue]
+  )
+);

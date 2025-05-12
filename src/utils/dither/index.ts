@@ -39,3 +39,5 @@ export * from './glitchEffects/modulatedDiffuseX';
 export * from './glitchEffects/glitch';
 export * from './glitchEffects/waveform';
 export * from './glitchEffects/smoothDiffuse';
+export * from './glitchEffects/jpegGlitch';
+export * from './glitchEffects/colorMosaic';

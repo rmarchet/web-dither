@@ -1,5 +1,5 @@
 import { ImageSettings, DitherSettings } from "../../../../types";
-import { getChan, rgb2hsb, clamp } from "../../../effects/effects";
+import { getChan, rgb2hsb, map, clamp } from "../../../effects/effects";
 
 export const applyFractalify = (
   image: ImageSettings,

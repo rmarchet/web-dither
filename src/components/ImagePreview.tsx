@@ -117,7 +117,11 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
     onImageUpload({ target: { value: null } } as React.ChangeEvent<HTMLInputElement>);
   };
 
-  const handleShowOriginal = () => setShowOriginal(true);
+  const handleShowOriginal = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (e.button === 0) {
+      setShowOriginal(true);
+    }
+  };
   const handleHideOriginal = () => setShowOriginal(false);
 
   const handleDrop = (event: React.DragEvent<HTMLLabelElement>) => {
