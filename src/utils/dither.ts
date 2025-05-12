@@ -29,13 +29,13 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
       dither.applyGaussian(image, settings);
       break;
     case 'Atkinson':
-      dither.applyAtkinson(image, settings);
+      dither.atkinson.apply(image, settings);
       break;
     case 'Atkinson-VHS':
       dither.applyAtkinsonVHS(image, settings);
       break;
     case 'Bayer':
-      dither.applyBayer(image, settings);
+      dither.bayer.apply(image, settings);
       break;
     case 'Bayer-Ordered':
       dither.applyBayerOrdered(image, settings);
