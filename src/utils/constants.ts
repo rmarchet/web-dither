@@ -1,9 +1,16 @@
+export const DITHER_CATEGORIES = {
+  DEFAULT: 'Default',
+  ERROR_DIFFUSION: 'Error Diffusion',
+  ORDERED_DITHERING: 'Ordered Dithering',
+  GLITCH_EFFECTS: 'Glitch Effects',
+} as const;
+
 // Define the dither styles as a const array
 export const DITHER_OPTIONS = {
-  'Default': [
+  [DITHER_CATEGORIES.DEFAULT]: [
     'None',
   ],
-  'Error Diffusion': [
+  [DITHER_CATEGORIES.ERROR_DIFFUSION]: [
     'Floyd-Steinberg',
     'Ordered',
     'Atkinson',
@@ -20,7 +27,7 @@ export const DITHER_OPTIONS = {
     'Ostromukhov',
     'Gaussian'
   ],
-  'Ordered Dithering': [
+  [DITHER_CATEGORIES.ORDERED_DITHERING]: [
     'Bayer-Ordered',
     'Bayer-Void',
     'Random-Ordered',
@@ -29,7 +36,7 @@ export const DITHER_OPTIONS = {
     'Bayer Matrix 2x2',
     'Bayer Matrix 4x4',
   ],
-  'Glitch Effects': [
+  [DITHER_CATEGORIES.GLITCH_EFFECTS]: [
     'Atkinson-VHS',
     'Glitch',
     'Modulated Diffuse Y',

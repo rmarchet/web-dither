@@ -8,25 +8,25 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
   const { style, noise } = settings;
   switch (style) {
     case 'Floyd-Steinberg':
-      dither.applyFloydSteinberg(image, settings);
+      dither.floydSteinberg.apply(image, settings);
       break;
     case 'Jarvis-Judice-Ninke':
-      dither.applyJarvisJudiceNinke(image, settings);
+      dither.jarvisJudiceNinke.apply(image, settings);
       break;
     case 'Sierra-Lite':
-      dither.applySierraLite(image, settings);
+      dither.sierraLite.apply(image, settings);
       break;
     case 'Two-Row-Sierra':
-      dither.applyTwoRowSierra(image, settings);
+      dither.twoRowSierra.apply(image, settings);
       break;
     case 'Stevenson-Arce':
-      dither.applyStevensonArce(image, settings);
+      dither.stevensonArce.apply(image, settings);
       break;
     case 'Ostromukhov':
-      dither.applyOstromukhov(image, settings);
+      dither.ostromukhov.apply(image, settings);
       break;
     case 'Gaussian':
-      dither.applyGaussian(image, settings);
+      dither.gaussian.apply(image, settings);
       break;
     case 'Atkinson':
       dither.atkinson.apply(image, settings);
@@ -38,31 +38,31 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
       dither.bayer.apply(image, settings);
       break;
     case 'Bayer-Ordered':
-      dither.applyBayerOrdered(image, settings);
+      dither.bayerOrdered.apply(image, settings);
       break;
     case 'Bayer-Void':
       dither.applyBayerVoid(image, settings);
       break;
     case 'Ordered':
-      dither.applyOrdered(image, settings);
+      dither.ordered.apply(image, settings);
       break;
     case 'Random':
-      dither.applyRandom(image, settings);
+      dither.random.apply(image, settings);
       break;
     case 'Random-Ordered':
       dither.applyRandomOrdered(image, settings);
       break;
     case 'Burkes':
-      dither.applyBurkes(image, settings);
+      dither.burkes.apply(image, settings);
       break;
     case 'Sierra':
-      dither.applySierra(image, settings);
+      dither.sierra.apply(image, settings);
       break;
     case 'Halftone':
-      dither.applyHalftone(image, settings);
+      dither.halftone.apply(image, settings);
       break;
     case 'Stucki':
-      dither.applyStucki(image, settings);
+      dither.stucki.apply(image, settings);
       break;
     case 'Smooth Diffuse':
       dither.applySmoothDiffuse(image, settings);
@@ -86,7 +86,7 @@ function runDither(image: ImageSettings, settings: DitherSettings) {
       dither.applyWaveform(image, settings);
       break;
     case 'Bayer Matrix 2x2':
-      dither.applyBayerMatrix2x2(image, settings);
+      dither.bayerMatrix2x2.apply(image, settings);
       break;
     case 'Bayer Matrix 4x4':
       dither.applyBayerMatrix4x4(image, settings);

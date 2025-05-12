@@ -1,4 +1,4 @@
-import { DitherSettings, ImageSettings } from '../../types';
+import { DitherSettings, ImageSettings } from '../../../types';
 
 // 2x2 Bayer matrix
 const bayer2x2 = [

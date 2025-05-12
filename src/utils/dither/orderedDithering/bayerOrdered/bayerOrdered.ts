@@ -1,4 +1,4 @@
-import { DitherSettings, ImageSettings } from '../../types';
+import { DitherSettings, ImageSettings } from '../../../types';
 
 // 8x8 Bayer matrix for ordered dithering
 const BAYER_MATRIX = [

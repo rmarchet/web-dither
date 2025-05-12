@@ -1,4 +1,4 @@
-import { DitherSettings, ImageSettings } from '../../types';
+import { DitherSettings, ImageSettings } from '../../../types';
 
 export const applyBurkes = (image: ImageSettings, settings: DitherSettings) => {
   const { data, width, height } = image;

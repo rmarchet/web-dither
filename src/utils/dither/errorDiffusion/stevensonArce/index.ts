@@ -1,9 +1,10 @@
-import { applyAtkinson } from './atkinson';
+import { applyStevensonArce } from './stevensonArce';
 import { DITHER_CATEGORIES } from '../../../constants';
-export const atkinson = {
-  apply: applyAtkinson,
-  name: 'Atkinson',
-  handle: 'atkinson',
+
+export const stevensonArce = {
+  apply: applyStevensonArce,
+  name: 'Stevenson-Arce',
   description: 'A dithering algorithm that uses a 3x3 grid to distribute error',
   category: DITHER_CATEGORIES.ERROR_DIFFUSION,
+  handle: 'stevensonArce',
 };
