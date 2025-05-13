@@ -3,6 +3,7 @@ export const DITHER_CATEGORIES = {
   ERROR_DIFFUSION: 'Error Diffusion',
   ORDERED_DITHERING: 'Ordered Dithering',
   GLITCH_EFFECTS: 'Glitch Effects',
+  ASCII: 'ASCII',
 } as const;
 
 export const STORAGE_KEY = 'web-dither-image';

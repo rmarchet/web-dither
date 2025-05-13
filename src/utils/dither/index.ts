@@ -42,3 +42,6 @@ export * from './glitchEffects/smoothDiffuse';
 export * from './glitchEffects/jpegGlitch';
 export * from './glitchEffects/colorMosaic';
 export * from './glitchEffects/reededGlass';
+
+// ASCII
+export * from './ascii/alphanumeric';
