@@ -131,7 +131,7 @@ export const SETTINGS = {
   },
   grayscale: {
     type: 'boolean',
-    defaultValue: true,
+    defaultValue: false,
   },
 }
 
