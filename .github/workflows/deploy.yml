@@ -31,4 +31,4 @@ jobs:
           folder: ditr
           branch: main
           repository-name: rmarchet/rmarchet.github.io
-          token: ${{ secrets.GITHUB_TOKEN }} 
+          token: ${{ secrets.PUSH_GITHUB_TOKEN }} 
