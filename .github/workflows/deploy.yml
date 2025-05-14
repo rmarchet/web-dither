@@ -22,13 +22,11 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Rename dist to ditr
-        run: mv dist ditr
-
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: ditr
+          folder: dist
+          target-folder: web-dither
           branch: main
           repository-name: rmarchet/rmarchet.github.io
           token: ${{ secrets.PUSH_GITHUB_TOKEN }} 
