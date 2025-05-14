@@ -1,7 +1,7 @@
 import { DitherSettings, ImageSettings } from '../types';
 import { scaleDitheredImage } from './effects/scaleDitheredImage';
 import { preprocessImage } from './effects/preprocessImage';
-import * as dither from './dither/index';
+import * as dither from '../filters/index';
 
 const dithers = Object.values(dither);
 

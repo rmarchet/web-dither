@@ -1,4 +1,4 @@
-import * as dither from './dither/index';
+import * as dither from '../filters/index';
 import { DITHER_CATEGORIES } from './constants';
 
 const dithers = Object.values(dither);
