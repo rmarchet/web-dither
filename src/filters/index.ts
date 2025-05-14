@@ -38,10 +38,11 @@ export * from './glitchEffects/modulatedDiffuseY';
 export * from './glitchEffects/modulatedDiffuseX';
 export * from './glitchEffects/glitch';
 export * from './glitchEffects/waveform';
+export * from './glitchEffects/waveformAlt';
 export * from './glitchEffects/smoothDiffuse';
 export * from './glitchEffects/jpegGlitch';
 export * from './glitchEffects/colorMosaic';
 export * from './glitchEffects/reededGlass';
-
+export * from './glitchEffects/anaglyph';
 // ASCII
 export * from './ascii/alphanumeric';
