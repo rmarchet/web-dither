@@ -1,6 +1,6 @@
 import { DitherSettings, ImageSettings } from '../../../types';
 import { clamp, rgb2yiq, yiq2rgb } from '../../../utils/effects/effects';
-import { LowpassFilter } from '../../../utils/effects/LowPassFilter';
+import { LowpassFilter } from '../../../utils/effects/LowpassFilter';
 
 // --- Main composite video simulation ---
 export const applyCompositeVideo = (

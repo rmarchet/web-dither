@@ -7,11 +7,6 @@ import serve from 'rollup-plugin-dev';
 import postcss from 'rollup-plugin-postcss';
 import copy from 'rollup-plugin-copy';
 
-// Define environment variables
-const env = {
-  'process.env.NODE_ENV': JSON.stringify('development')
-};
-
 export default {
   input: 'src/index.tsx',
   output: {
@@ -71,7 +66,6 @@ export default {
       port: 3000,
     }),
   ],
-  define: env,
   onwarn(warning, warn) {
     // Ignore "use client" directive warnings
     if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('"use client"')) {
