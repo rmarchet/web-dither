@@ -45,7 +45,11 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
   // Save image to localStorage when it changes
   useEffect(() => {
     if (image) {
-      localStorage.setItem(STORAGE_KEY, image);
+      try {
+        localStorage.setItem(STORAGE_KEY, image);
+      } catch (e) {
+        console.error(e)
+      }
     }
   }, [image]);
 

@@ -1,4 +1,4 @@
-import { DitherSettings } from '../types';
+import { DitherSettings } from '../../types';
 
 export function toGrayscale(data: Uint8ClampedArray) {
   for (let i = 0; i < data.length; i += 4) {

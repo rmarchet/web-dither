@@ -1,4 +1,4 @@
-import { DitherSettings, ImageSettings } from '../types';
+import { DitherSettings, ImageSettings } from '../../types';
 import { fastBoxBlur } from './fastBoxBlur';
 import {
   toGrayscale,
