@@ -1,7 +1,7 @@
 import styles from '../styles/Footer.module.css';
 
 export const Footer = () => {
-  const logo = '/logo.svg';
+  const logo = 'logo.svg';
 
   return (
     <footer className={styles.logoContainer}>
