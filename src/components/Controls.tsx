@@ -1,8 +1,10 @@
 import React from 'react';
+import Select from 'react-select';
 import cn from 'classnames';
-import { DITHER_STYLES, SCALED_STYLES, DITHER_OPTIONS } from '../utils/controlOptions';
+import { DITHER_STYLES, SCALED_STYLES, SETTINGS, DITHER_OPTIONS, REACT_SELECT_OPTIONS } from '../utils/controlOptions';
 import { ModulatedDiffuseControls } from './Controls/ModulatedDiffuseControls';
 import { DitherSettings, DitherStyle } from '../types';
+import { reactSelectStyles } from '../styles/reactSelectStyles.ts';
 import styles from '../styles/Controls.module.css';
 
 interface ControlsProps {
@@ -19,21 +21,12 @@ export const Controls: React.FC<ControlsProps> = ({
   return (
     <div className={styles.controls}>
       <div className={cn(styles.controlGroup, styles.styleGroup)}>
-        <label htmlFor="style-select" className={styles.controlLabel}>Style:</label>
-        <select
-          id="style-select"
-          className={styles.select}
-          value={settings.style}
-          onChange={(e) => onSettingChange('style', e.target.value as DitherStyle)}
-        >
-          {Object.entries(DITHER_OPTIONS).map(([group, styles]) => (
-            <optgroup key={group} label={group}>
-              {styles.map(style => (
-                <option key={style} value={style}>{style}</option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
+        <Select
+          onChange={(dither) => onSettingChange('style', dither.value as DitherStyle)}
+          options={REACT_SELECT_OPTIONS}
+          value={{ label: `Style: ${settings.style}`, value: settings.style }}
+          styles={reactSelectStyles}
+        />
       </div>
 
       {SCALED_STYLES.includes(settings.style) && (
@@ -43,10 +36,10 @@ export const Controls: React.FC<ControlsProps> = ({
             <span className={styles.value}>{settings.ditheringScale}</span>
           </label>
           <input
-            type="range"
-            min="1"
-            max="15"
-            step="1"
+            type={SETTINGS.ditheringScale.type}
+            min={SETTINGS.ditheringScale.min}
+            max={SETTINGS.ditheringScale.max}
+            step={SETTINGS.ditheringScale.step}
             value={settings.ditheringScale}
             onChange={(e) => onSettingChange('ditheringScale', Number(e.target.value))}
             className={styles.slider}
@@ -60,9 +53,9 @@ export const Controls: React.FC<ControlsProps> = ({
           <span className={styles.value}>{settings.detailEnhancement}</span>
         </label>
         <input
-          type="range"
-          min="0"
-          max="100"
+          type={SETTINGS.detailEnhancement.type}
+          min={SETTINGS.detailEnhancement.min}
+          max={SETTINGS.detailEnhancement.max}
           value={settings.detailEnhancement}
           onChange={(e) => onSettingChange('detailEnhancement', Number(e.target.value))}
           className={styles.slider}
@@ -75,9 +68,9 @@ export const Controls: React.FC<ControlsProps> = ({
           <span className={styles.value}>{settings.brightness}</span>
         </label>
         <input
-          type="range"
-          min="-100"
-          max="100"
+          type={SETTINGS.brightness.type}
+          min={SETTINGS.brightness.min}
+          max={SETTINGS.brightness.max}
           value={settings.brightness}
           onChange={(e) => onSettingChange('brightness', Number(e.target.value))}
           className={styles.slider}

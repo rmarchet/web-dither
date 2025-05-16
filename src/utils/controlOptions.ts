@@ -15,6 +15,11 @@ export const DITHER_OPTIONS = {
 } as const;
 
 
+export const REACT_SELECT_OPTIONS = Object.entries(DITHER_OPTIONS).map(([category, styles]) => ({
+  label: category,
+  options: styles.map(style => ({ label: style, value: style })),
+}));
+
 // Flatten all dither options into a single array
 export const DITHER_STYLES = Object.values(DITHER_OPTIONS).flat() as const;
 
@@ -39,7 +44,7 @@ export const SETTINGS = {
     type: 'range',
     defaultValue: 1,
     min: 1,
-    max: 10,
+    max: 15,
     step: 1,
   },
   detailEnhancement: {
@@ -135,6 +140,8 @@ export const SETTINGS = {
     defaultValue: false,
   },
 }
+
+export const SETTINGS_WIDGETS = Object.keys(SETTINGS);
 
 export const DEFAULT_SETTINGS = Object.fromEntries(
   Object.entries(SETTINGS).map(

@@ -1,5 +1,6 @@
 import { applyAtkinson } from './atkinson';
 import { DITHER_CATEGORIES } from '../../../utils/constants';
+
 export const atkinson = {
   apply: applyAtkinson,
   name: 'Atkinson',
