@@ -1,5 +1,5 @@
-import { applyStucki } from './stucki';
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyStucki } from './stucki'
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const stucki = {
   apply: applyStucki,
@@ -7,4 +7,4 @@ export const stucki = {
   description: 'A dithering algorithm that uses a 3x3 grid to distribute error',
   category: DITHER_CATEGORIES.ERROR_DIFFUSION,
   handle: 'stucki',
-};
+}

@@ -1,39 +1,39 @@
-import { DitherSettings, ImageSettings } from '../../types';
-import { fastBoxBlur } from './fastBoxBlur';
+import { DitherSettings, ImageSettings } from '../../types'
+import { fastBoxBlur } from './fastBoxBlur'
 import {
   toGrayscale,
   applyDetailEnhancement,
   applyBrightness,
   applyMidtones,
   invertImage
-} from './imageTransforms';
+} from './imageTransforms'
 
 export const preprocessImage = (image: ImageSettings, settings: DitherSettings) => {
-  const { data, width, height } = image;
+  const { data, width, height } = image
 
   // force grayscale
   if (settings.grayscale) {
-    toGrayscale(data);
+    toGrayscale(data)
   }
 
   if (settings.blur > 0) {
-    const blurRadius = Math.round(settings.blur / 20);
-    fastBoxBlur(data, width, height, blurRadius);
+    const blurRadius = Math.round(settings.blur / 20)
+    fastBoxBlur(data, width, height, blurRadius)
   }
 
   if (settings.detailEnhancement !== 50) {
-    applyDetailEnhancement(data, settings.detailEnhancement / 50);
+    applyDetailEnhancement(data, settings.detailEnhancement / 50)
   }
 
   if (settings.brightness !== 0) {
-    applyBrightness(data, settings);
+    applyBrightness(data, settings)
   }
 
   if (settings.midtones !== 1) {
-    applyMidtones(data, settings);
+    applyMidtones(data, settings)
   }
 
   if (settings.invert) {
-    invertImage(data);
+    invertImage(data)
   }
-};
+}

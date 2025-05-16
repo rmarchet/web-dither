@@ -1,5 +1,5 @@
-import { applySmoothDiffuse } from './smoothDiffuse';
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applySmoothDiffuse } from './smoothDiffuse'
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const smoothDiffuse = {
   apply: applySmoothDiffuse,
@@ -7,4 +7,4 @@ export const smoothDiffuse = {
   description: 'A filter that creates a Smooth Diffuse dithering effect',
   category: DITHER_CATEGORIES.GLITCH_EFFECTS,
   handle: 'smoothDiffuse',
-};
+}

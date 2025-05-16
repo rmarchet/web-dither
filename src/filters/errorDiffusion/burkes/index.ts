@@ -1,5 +1,5 @@
-import { applyBurkes } from './burkes';
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyBurkes } from './burkes'
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const burkes = {
   apply: applyBurkes,
@@ -7,4 +7,4 @@ export const burkes = {
   description: 'A dithering algorithm that uses a 3x3 grid to distribute error',
   category: DITHER_CATEGORIES.ERROR_DIFFUSION,
   handle: 'burkes',
-};
+}

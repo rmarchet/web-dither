@@ -1,5 +1,5 @@
-import { applyBayerOrdered } from './bayerOrdered';
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyBayerOrdered } from './bayerOrdered'
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const bayerOrdered = {
   apply: applyBayerOrdered,
@@ -7,4 +7,4 @@ export const bayerOrdered = {
   description: 'A dithering algorithm that uses a Bayer matrix to distribute error',
   category: DITHER_CATEGORIES.ORDERED_DITHERING,
   handle: 'bayerOrdered',
-};
+}

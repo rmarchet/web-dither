@@ -1,11 +1,11 @@
-import React from 'react';
-import Select from 'react-select';
-import cn from 'classnames';
-import { DITHER_STYLES, SCALED_STYLES, SETTINGS, DITHER_OPTIONS, REACT_SELECT_OPTIONS } from '../utils/controlOptions';
-import { ModulatedDiffuseControls } from './Controls/ModulatedDiffuseControls';
-import { DitherSettings, DitherStyle } from '../types';
-import { reactSelectStyles } from '../styles/reactSelectStyles.ts';
-import styles from '../styles/Controls.module.css';
+import React from 'react'
+import Select from 'react-select'
+import cn from 'classnames'
+import { SCALED_STYLES, SETTINGS, REACT_SELECT_OPTIONS } from '../utils/controlOptions'
+import { ModulatedDiffuseControls } from './Controls/ModulatedDiffuseControls'
+import { DitherSettings, DitherStyle } from '../types'
+import { reactSelectStyles } from '../styles/reactSelectStyles.ts'
+import styles from '../styles/Controls.module.css'
 
 interface ControlsProps {
   settings: DitherSettings;
@@ -110,37 +110,37 @@ export const Controls: React.FC<ControlsProps> = ({
       )}
 
     
-    {(settings.style === 'AAAAAA') && ( // temporarily disabled 
+      {(settings.style === 'AAAAAA') && ( // temporarily disabled 
+        <div className={styles.controlGroup}>
+          <label className={styles.controlLabel}>
+          Luminance Threshold
+            <span className={styles.value}>{settings.luminanceThreshold}</span>
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="255"
+            value={settings.luminanceThreshold}
+            onChange={(e) => onSettingChange('luminanceThreshold', Number(e.target.value))}
+            className={styles.slider}
+          />
+        </div>
+      )}
+
       <div className={styles.controlGroup}>
         <label className={styles.controlLabel}>
-          Luminance Threshold
-          <span className={styles.value}>{settings.luminanceThreshold}</span>
+        Blur
+          <span className={styles.value}>{settings.blur}</span>
         </label>
         <input
           type="range"
           min="0"
-          max="255"
-          value={settings.luminanceThreshold}
-          onChange={(e) => onSettingChange('luminanceThreshold', Number(e.target.value))}
+          max="100"
+          value={settings.blur}
+          onChange={(e) => onSettingChange('blur', Number(e.target.value))}
           className={styles.slider}
         />
       </div>
-      )}
-
-    <div className={styles.controlGroup}>
-      <label className={styles.controlLabel}>
-        Blur
-        <span className={styles.value}>{settings.blur}</span>
-      </label>
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value={settings.blur}
-        onChange={(e) => onSettingChange('blur', Number(e.target.value))}
-        className={styles.slider}
-      />
-    </div>
 
       {/* Show these sliders only for Modulated Diffuse Y or Modulated Diffuse X style */}
       {(settings.style === 'Modulated Diffuse Y' 
@@ -155,7 +155,7 @@ export const Controls: React.FC<ControlsProps> = ({
       || settings.style === 'Waveform'
       || settings.style === 'Waveform Alt'
       || settings.style === 'Anaglyph'
-    ) && (
+      ) && (
         <ModulatedDiffuseControls settings={settings} onSettingChange={onSettingChange} />
       )}
 
@@ -189,5 +189,5 @@ export const Controls: React.FC<ControlsProps> = ({
         </button>
       </div>
     </div>
-  );
-};
+  )
+}

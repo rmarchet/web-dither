@@ -1,5 +1,5 @@
-import styles from '../../styles/Controls.module.css';
-import { DitherSettings } from '../../types';
+import styles from '../../styles/Controls.module.css'
+import { DitherSettings } from '../../types'
 
 interface ModulatedDiffuseControlsProps {
   settings: DitherSettings;
@@ -58,5 +58,5 @@ export const ModulatedDiffuseControls = ({
         />
       </div>
     </>
-  );
+  )
 };

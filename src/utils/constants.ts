@@ -4,8 +4,8 @@ export const DITHER_CATEGORIES = {
   ORDERED_DITHERING: 'Ordered Dithering',
   GLITCH_EFFECTS: 'Glitch Effects',
   ASCII: 'ASCII',
-} as const;
+} as const
 
-export const STORAGE_KEY = 'web-dither-image';
-export const FILE_NAME_PREFIX = 'ditr-image';
+export const STORAGE_KEY = 'web-dither-image'
+export const FILE_NAME_PREFIX = 'ditr-image'
 

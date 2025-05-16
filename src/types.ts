@@ -1,4 +1,4 @@
-import { DITHER_STYLES } from './utils/constants';
+import { DITHER_STYLES } from './utils/constants'
 
 export type DitherStyle = typeof DITHER_STYLES[number];
 

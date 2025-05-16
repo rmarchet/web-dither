@@ -1,5 +1,5 @@
-import { applyLinesGlitch } from './linesGlitch';
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyLinesGlitch } from './linesGlitch'
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const linesGlitch = {
   apply: applyLinesGlitch,
@@ -7,4 +7,4 @@ export const linesGlitch = {
   description: 'A filter that creates a Lines Glitch effect (a glitch effect)',
   category: DITHER_CATEGORIES.GLITCH_EFFECTS,
   handle: 'linesGlitch',
-};
+}

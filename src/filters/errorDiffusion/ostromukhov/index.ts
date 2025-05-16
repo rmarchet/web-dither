@@ -1,5 +1,5 @@
-import { applyOstromukhov } from './ostromukhov';
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyOstromukhov } from './ostromukhov'
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const ostromukhov = {
   apply: applyOstromukhov,
@@ -7,4 +7,4 @@ export const ostromukhov = {
   description: 'A dithering algorithm that uses a 2x2 grid to distribute error',
   category: DITHER_CATEGORIES.ERROR_DIFFUSION,
   handle: 'ostromukhov',
-};
+}

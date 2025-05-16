@@ -1,9 +1,10 @@
+import { StylesConfig } from 'react-select'
 export const reactSelectStyles = {
-  container: (styles: any) => ({
+  container: (styles: StylesConfig['container']) => ({
     ...styles,
     width: '100%',
   }),
-  control: (styles: any) => ({
+  control: (styles: StylesConfig['control']) => ({
     ...styles,
     border: 'none',
     borderRadius: '0',
@@ -11,8 +12,8 @@ export const reactSelectStyles = {
     backgroundColor: 'transparent',
     cursor: 'pointer',
   }),
-  indicatorSeparator: (styles: any) => ({
+  indicatorSeparator: (styles: StylesConfig['indicatorSeparator']) => ({
     ...styles,
     display: 'none',
   }),
-};
+}

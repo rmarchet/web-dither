@@ -1,5 +1,5 @@
-import { applyReededGlass } from "./reededGlass";
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyReededGlass } from "./reededGlass"
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const reededGlass = {
   apply: applyReededGlass,
@@ -7,4 +7,4 @@ export const reededGlass = {
   description: 'A filter that creates a Reeded Glass effect on the image',
   category: DITHER_CATEGORIES.GLITCH_EFFECTS,
   handle: 'reededGlass',
-};
+}

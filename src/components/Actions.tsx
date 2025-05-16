@@ -1,4 +1,4 @@
-import styles from '../styles/ImagePreview.module.css';
+import styles from '../styles/ImagePreview.module.css'
 
 interface ActionsProps {
   onChangeImage: () => void;
@@ -23,5 +23,5 @@ export const Actions = ({
         Clear Image
       </button>
     </div>
-  );
-};
+  )
+}

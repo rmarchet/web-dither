@@ -1,5 +1,5 @@
-import { applyBayerMatrix4x4 } from './bayerMatrix4x4';
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyBayerMatrix4x4 } from './bayerMatrix4x4'
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const bayerMatrix4x4 = {
   apply: applyBayerMatrix4x4,
@@ -7,4 +7,4 @@ export const bayerMatrix4x4 = {
   description: 'A dithering algorithm that uses a 4x4 grid to distribute error',
   category: DITHER_CATEGORIES.ORDERED_DITHERING,
   handle: 'bayerMatrix4x4',
-};
+}

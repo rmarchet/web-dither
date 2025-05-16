@@ -1,5 +1,5 @@
-import { applyJpegGlitch } from "./jpegGlitch";
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyJpegGlitch } from "./jpegGlitch"
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const jpegGlitch = {
   apply: applyJpegGlitch,
@@ -7,4 +7,4 @@ export const jpegGlitch = {
   description: 'A filter that creates a JPEG Glitch effect',
   category: DITHER_CATEGORIES.GLITCH_EFFECTS,
   handle: 'jpegGlitch',
-};
+}

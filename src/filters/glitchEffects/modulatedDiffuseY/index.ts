@@ -1,5 +1,5 @@
-import { applyModulatedDiffuseY } from './modulatedDiffuseY';
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyModulatedDiffuseY } from './modulatedDiffuseY'
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const modulatedDiffuseY = {
   apply: applyModulatedDiffuseY,
@@ -7,4 +7,4 @@ export const modulatedDiffuseY = {
   description: 'A filter that creates a Modulated Diffuse FM effect over the image on the Y axis',
   category: DITHER_CATEGORIES.GLITCH_EFFECTS,
   handle: 'modulatedDiffuseY',
-};
+}

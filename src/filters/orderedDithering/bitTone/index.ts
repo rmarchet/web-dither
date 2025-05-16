@@ -1,5 +1,5 @@
-import { applyBitTone } from './bitTone';
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyBitTone } from './bitTone'
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const bitTone = {
   apply: applyBitTone,
@@ -7,4 +7,4 @@ export const bitTone = {
   description: 'A dithering algorithm that uses a bit tone to distribute error',
   category: DITHER_CATEGORIES.ORDERED_DITHERING,
   handle: 'bitTone',
-};
+}

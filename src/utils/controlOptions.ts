@@ -1,7 +1,7 @@
-import * as dither from '../filters/index';
-import { DITHER_CATEGORIES } from './constants';
+import * as dither from '../filters/index'
+import { DITHER_CATEGORIES } from './constants'
 
-const dithers = Object.values(dither);
+const dithers = Object.values(dither)
 
 // Define the dither styles as a const array
 export const DITHER_OPTIONS = {
@@ -12,19 +12,19 @@ export const DITHER_OPTIONS = {
   [DITHER_CATEGORIES.ORDERED_DITHERING]: dithers.filter(d => d.category === DITHER_CATEGORIES.ORDERED_DITHERING).map(d => d.name),
   [DITHER_CATEGORIES.GLITCH_EFFECTS]: dithers.filter(d => d.category === DITHER_CATEGORIES.GLITCH_EFFECTS).map(d => d.name),
   [DITHER_CATEGORIES.ASCII]: dithers.filter(d => d.category === DITHER_CATEGORIES.ASCII).map(d => d.name),
-} as const;
+} as const
 
 
 export const REACT_SELECT_OPTIONS = Object.entries(DITHER_OPTIONS).map(([category, styles]) => ({
   label: category,
   options: styles.map(style => ({ label: style, value: style })),
-}));
+}))
 
 // Flatten all dither options into a single array
-export const DITHER_STYLES = Object.values(DITHER_OPTIONS).flat() as const;
+export const DITHER_STYLES = Object.values(DITHER_OPTIONS).flat() as const
 
 // Add a list of styles that support dithering scale
-export const SCALED_STYLES = DITHER_STYLES as const;
+export const SCALED_STYLES = DITHER_STYLES as const
 
 
 export const SETTINGS = {
@@ -141,10 +141,10 @@ export const SETTINGS = {
   },
 }
 
-export const SETTINGS_WIDGETS = Object.keys(SETTINGS);
+export const SETTINGS_WIDGETS = Object.keys(SETTINGS)
 
 export const DEFAULT_SETTINGS = Object.fromEntries(
   Object.entries(SETTINGS).map(
     ([key, value]) => [key, value.defaultValue]
   )
-);
+)

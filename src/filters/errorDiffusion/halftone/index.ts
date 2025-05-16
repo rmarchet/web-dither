@@ -1,5 +1,5 @@
-import { applyHalftone } from './halftone';
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyHalftone } from './halftone'
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const halftone = {
   apply: applyHalftone,
@@ -7,4 +7,4 @@ export const halftone = {
   description: 'A dithering algorithm that uses a 2x2 grid to distribute error',
   category: DITHER_CATEGORIES.ERROR_DIFFUSION,
   handle: 'halftone',
-};
+}

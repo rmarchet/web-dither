@@ -1,4 +1,4 @@
-import { DitherSettings, ImageSettings } from '../../../types';
+import { DitherSettings, ImageSettings } from '../../../types'
 
 // 8x8 Bayer matrix for ordered dithering
 const BAYER_MATRIX = [
@@ -10,36 +10,36 @@ const BAYER_MATRIX = [
   [34, 18, 46, 30, 33, 17, 45, 29],
   [10, 58, 6, 54, 9, 57, 5, 53],
   [42, 26, 38, 22, 41, 25, 37, 21]
-];
+]
 
 export const applyBayerOrdered = (image: ImageSettings, settings: DitherSettings) => {
-  const { data, width, height } = image;
-  const { noise = 0 } = settings;
+  const { data, width, height } = image
+  const { noise = 0 } = settings
 
   // Create a copy of the original data to avoid modifying it during processing
-  const originalData = new Uint8ClampedArray(data);
+  const originalData = new Uint8ClampedArray(data)
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
-      const i = (y * width + x) * 4;
+      const i = (y * width + x) * 4
       
       // Get the grayscale value from the original data
-      const gray = (originalData[i] * 0.299 + originalData[i + 1] * 0.587 + originalData[i + 2] * 0.114);
+      const gray = (originalData[i] * 0.299 + originalData[i + 1] * 0.587 + originalData[i + 2] * 0.114)
       
       // Get the threshold from the Bayer matrix
-      const threshold = (BAYER_MATRIX[y % 8][x % 8] / 64) * 255;
+      const threshold = (BAYER_MATRIX[y % 8][x % 8] / 64) * 255
       
       // Add noise if specified
-      const noiseValue = noise > 0 ? (Math.random() - 0.5) * noise * 255 : 0;
+      const noiseValue = noise > 0 ? (Math.random() - 0.5) * noise * 255 : 0
       
       // Apply threshold with noise
-      const newColor = (gray + noiseValue) < threshold ? 0 : 255;
+      const newColor = (gray + noiseValue) < threshold ? 0 : 255
       
       // Set the new color
-      data[i] = newColor;     // R
-      data[i + 1] = newColor; // G
-      data[i + 2] = newColor; // B
-      data[i + 3] = 255;      // A
+      data[i] = newColor     // R
+      data[i + 1] = newColor // G
+      data[i + 2] = newColor // B
+      data[i + 3] = 255      // A
     }
   }
-}; 
+} 

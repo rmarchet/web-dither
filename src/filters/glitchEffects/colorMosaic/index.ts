@@ -1,5 +1,5 @@
-import { applyColorMosaic } from "./colorMosaic";
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyColorMosaic } from "./colorMosaic"
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const colorMosaic = {
   apply: applyColorMosaic,
@@ -7,4 +7,4 @@ export const colorMosaic = {
   description: 'A filter that creates a color mosaic effect',
   category: DITHER_CATEGORIES.GLITCH_EFFECTS,
   handle: 'colorMosaic',
-};
+}

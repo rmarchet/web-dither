@@ -1,5 +1,5 @@
-import { applyCompositeVideo } from './compositeVideo';
-import { DITHER_CATEGORIES } from '../../../utils/constants';
+import { applyCompositeVideo } from './compositeVideo'
+import { DITHER_CATEGORIES } from '../../../utils/constants'
 
 export const compositeVideo = {
   apply: applyCompositeVideo,
@@ -7,4 +7,4 @@ export const compositeVideo = {
   description: 'A dithering algorithm that creates a composite video effect',
   category: DITHER_CATEGORIES.GLITCH_EFFECTS,
   handle: 'compositeVideo',
-};
+}
