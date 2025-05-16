@@ -13,6 +13,7 @@ export * from './errorDiffusion/random';
 export * from './errorDiffusion/burkes';
 export * from './errorDiffusion/sierra';
 export * from './errorDiffusion/halftone';
+export * from './errorDiffusion/halftoneDots';
 export * from './errorDiffusion/stucki';
 
 // Ordered Dithering
