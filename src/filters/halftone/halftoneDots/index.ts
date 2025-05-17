@@ -5,6 +5,6 @@ export const halftoneDots = {
   apply: applyHalftoneDots,
   name: 'Halftone Dots',
   description: 'A filter that creates a halftone dots effect',
-  category: DITHER_CATEGORIES.ERROR_DIFFUSION,
+  category: DITHER_CATEGORIES.HALFTONE,
   handle: 'halftone-dots',
 }

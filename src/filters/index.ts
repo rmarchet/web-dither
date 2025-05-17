@@ -12,9 +12,11 @@ export * from './errorDiffusion/ordered'
 export * from './errorDiffusion/random'
 export * from './errorDiffusion/burkes'
 export * from './errorDiffusion/sierra'
-export * from './errorDiffusion/halftone'
-export * from './errorDiffusion/halftoneDots'
 export * from './errorDiffusion/stucki'
+
+// Halftone
+export * from './halftone/halftone'
+export * from './halftone/halftoneDots'
 
 // Ordered Dithering
 export * from './orderedDithering/bayerOrdered'

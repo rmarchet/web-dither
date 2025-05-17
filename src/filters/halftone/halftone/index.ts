@@ -5,6 +5,6 @@ export const halftone = {
   apply: applyHalftone,
   name: 'Halftone',
   description: 'A dithering algorithm that uses a 2x2 grid to distribute error',
-  category: DITHER_CATEGORIES.ERROR_DIFFUSION,
+  category: DITHER_CATEGORIES.HALFTONE,
   handle: 'halftone',
 }
