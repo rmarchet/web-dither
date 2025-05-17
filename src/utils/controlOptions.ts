@@ -12,6 +12,7 @@ export const DITHER_OPTIONS = {
   [DITHER_CATEGORIES.ORDERED_DITHERING]: dithers.filter(d => d.category === DITHER_CATEGORIES.ORDERED_DITHERING).map(d => d.name),
   [DITHER_CATEGORIES.GLITCH_EFFECTS]: dithers.filter(d => d.category === DITHER_CATEGORIES.GLITCH_EFFECTS).map(d => d.name),
   [DITHER_CATEGORIES.ASCII]: dithers.filter(d => d.category === DITHER_CATEGORIES.ASCII).map(d => d.name),
+  [DITHER_CATEGORIES.COLOR]: dithers.filter(d => d.category === DITHER_CATEGORIES.COLOR).map(d => d.name),
 } as const
 
 

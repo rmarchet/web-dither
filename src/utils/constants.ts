@@ -4,6 +4,7 @@ export const DITHER_CATEGORIES = {
   ORDERED_DITHERING: 'Ordered Dithering',
   GLITCH_EFFECTS: 'Glitch Effects',
   ASCII: 'ASCII',
+  COLOR: 'Color',
 } as const
 
 export const STORAGE_KEY = 'web-dither-image'

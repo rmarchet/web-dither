@@ -48,3 +48,6 @@ export * from './glitchEffects/anaglyph'
 
 // ASCII
 export * from './ascii/alphanumeric'
+
+// Color
+export * from './color/infrared'
