@@ -17,6 +17,7 @@ export * from './errorDiffusion/stucki'
 // Halftone
 export * from './halftone/halftone'
 export * from './halftone/halftoneDots'
+export * from './halftone/halftoneLines'
 
 // Ordered Dithering
 export * from './orderedDithering/bayerOrdered'

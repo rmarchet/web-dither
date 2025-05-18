@@ -31,19 +31,20 @@ export const reactSelectStyles = {
     ...styles,
     paddingBottom: '0',
     marginBottom: '0',
+    marginTop: '0',
   }),
   groupHeading: (styles: StylesConfig['groupHeading']) => ({
     ...styles,
     backgroundColor: '#eee',
     margin: '0',
-    padding: '0.5rem 0.5rem',
+    padding: '0.3rem 0.5rem',
     fontWeight: 'bold',
   }),
   menu: (styles: StylesConfig['menu']) => ({
     ...styles,
     height: '100vh',
     maxHeight: '100vh',
-    marginTop: '0',
+    marginTop: '2px',
     borderRadius: '0',
   }),
   menuList: (styles: StylesConfig['menuList']) => ({
@@ -52,7 +53,7 @@ export const reactSelectStyles = {
   }),
   option: (styles: StylesConfig['option'], state: StateConfig) => ({
     ...styles,
-    padding: '0.5rem 0.5rem',
+    padding: '0.3rem 0.5rem',
     backgroundColor: state.isSelected
       ? ACCENT_COLOR
       : state.isFocused

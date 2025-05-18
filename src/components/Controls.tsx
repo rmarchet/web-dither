@@ -155,6 +155,7 @@ export const Controls: React.FC<ControlsProps> = ({
       || settings.style === 'Waveform'
       || settings.style === 'Waveform Alt'
       || settings.style === 'Anaglyph'
+      || settings.style === 'Halftone Lines'
       ) && (
         <ModulatedDiffuseControls settings={settings} onSettingChange={onSettingChange} />
       )}
