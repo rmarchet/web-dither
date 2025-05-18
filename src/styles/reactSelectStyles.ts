@@ -42,14 +42,18 @@ export const reactSelectStyles = {
   }),
   menu: (styles: StylesConfig['menu']) => ({
     ...styles,
-    height: '100vh',
-    maxHeight: '100vh',
+    height: '100%',
+    minHeight: '700px',
+    maxHeight: '100%',
     marginTop: '2px',
     borderRadius: '0',
+    zIndex: 100,
   }),
   menuList: (styles: StylesConfig['menuList']) => ({
     ...styles,
     padding: '0',
+    minHeight: '100%',
+    backgroundColor: 'white',
   }),
   option: (styles: StylesConfig['option'], state: StateConfig) => ({
     ...styles,
