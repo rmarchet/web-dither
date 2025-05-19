@@ -58,3 +58,4 @@ export * from './ascii/alphanumeric'
 // Color
 export * from './color/infrared'
 export * from './color/neonNegative'
+export * from './color/posterize'
