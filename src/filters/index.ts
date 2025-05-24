@@ -55,6 +55,7 @@ export * from './glitchEffects/anaglyph'
 
 // ASCII
 export * from './ascii/alphanumeric'
+export * from './ascii/symbols'
 
 // Color
 export * from './color/infrared'
