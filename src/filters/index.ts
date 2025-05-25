@@ -20,6 +20,7 @@ export * from './halftone/halftoneDots'
 export * from './halftone/halftoneLines'
 export * from './halftone/halftoneSquares'
 export * from './halftone/halftoneCircles'
+export * from './halftone/halftoneCMYK'
 
 // Ordered Dithering
 export * from './orderedDithering/bayerOrdered'
