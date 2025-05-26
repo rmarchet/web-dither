@@ -18,14 +18,33 @@ export const Controls: React.FC<ControlsProps> = ({
   onSettingChange,
   onReset
 }) => {
+  const flatOptions = REACT_SELECT_OPTIONS.flatMap(group => group.options)
+  const selectedOption = flatOptions.find(o => o.value === settings.style)
+
   return (
     <div className={styles.controls}>
       <div className={cn(styles.controlGroup, styles.styleGroup)}>
         <Select
+          menuShouldScrollIntoView={true}
           onChange={(dither) => onSettingChange('style', dither.value as DitherStyle)}
           options={REACT_SELECT_OPTIONS}
-          value={{ label: `Style: ${settings.style}`, value: settings.style }}
+          scrollToOption={(option, menuListRef) => {
+            if (menuListRef && option) {
+              // Try to find the child with the correct data-value attribute
+              for (let i = 0; i < menuListRef.children.length; i++) {
+                const child = menuListRef.children[i]
+                // react-select sets data-value on option elements
+                if (child.getAttribute && child.getAttribute('data-value') === option.value) {
+                  if (child.scrollIntoView) {
+                    child.scrollIntoView({ block: 'nearest' })
+                  }
+                  break
+                }
+              }
+            }
+          }}
           styles={reactSelectStyles}
+          value={selectedOption}
         />
       </div>
 
