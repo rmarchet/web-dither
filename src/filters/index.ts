@@ -56,8 +56,8 @@ export * from './glitchEffects/anaglyph'
 
 // ASCII
 export * from './ascii/asciiAlphanumeric'
-export * from './ascii/asciiSymbols'
-
+export * from './ascii/asciiSymbols/index'
+export * from './ascii/asciiColor'
 // Color
 export * from './color/infrared'
 export * from './color/neonNegative'
