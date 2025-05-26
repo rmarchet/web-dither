@@ -3,7 +3,7 @@ import { DitherSettings, ImageSettings } from '../../../types'
 // Default ASCII characters size
 const DEFAULT_ASCII_SIZE = 13
   
-export const applyAlphanumeric = (image: ImageSettings, settings: DitherSettings) => {
+export const applyAsciiAlphanumeric = (image: ImageSettings, settings: DitherSettings) => {
   const { width, height } = image
   const verticalBlockSize = DEFAULT_ASCII_SIZE
   const horizontalBlockSize = DEFAULT_ASCII_SIZE * 0.604

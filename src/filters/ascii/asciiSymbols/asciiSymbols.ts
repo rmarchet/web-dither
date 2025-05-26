@@ -1,6 +1,6 @@
 import { ImageSettings } from "../../../types"
 
-export const applySymbols = (image: ImageSettings) => {
+export const applyAsciiSymbols = (image: ImageSettings) => {
   const { data, width, height } = image
   // Ordered by brightness
   const SYMBOLS = [' ', '.', ':', '-', '+', '=', '*', '@', '#', '%']

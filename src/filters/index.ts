@@ -55,8 +55,8 @@ export * from './glitchEffects/reededGlass'
 export * from './glitchEffects/anaglyph'
 
 // ASCII
-export * from './ascii/alphanumeric'
-export * from './ascii/symbols'
+export * from './ascii/asciiAlphanumeric'
+export * from './ascii/asciiSymbols'
 
 // Color
 export * from './color/infrared'
